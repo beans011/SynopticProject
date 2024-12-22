@@ -60,11 +60,15 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.48f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerMovement.cs" />
     <Compile Include="Assets\Packages\ITween.cs" />
     <Compile Include="Assets\Packages\TweenManager.cs" />
     <Compile Include="Assets\Packages\Tween.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerInput.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\Objects\ObjectSpawner.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\ShopItemCreation.cs" />
+    <Compile Include="Assets\Scripts\Objects\ProductManager.cs" />
+    <Compile Include="Assets\Scripts\Shop\ShopStats.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
