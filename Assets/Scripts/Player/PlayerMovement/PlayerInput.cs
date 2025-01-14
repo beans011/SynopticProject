@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [Header("Player Movement Keybinds")]
-    [SerializeField] private KeyCode playerForwardKey;
-    [SerializeField] private KeyCode playerBackwardKey;
-    [SerializeField] private KeyCode playerLeftKey;
-    [SerializeField] private KeyCode playerRightKey;
+    [Header("Movement Keybinds")]
+    [SerializeField] private KeyCode playerJump;
 
     [Header("Object Interact Keybinds")]
     [SerializeField] private KeyCode playerObjectInteractKey;
@@ -20,30 +17,74 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private KeyCode playerPauseButtonKey;
     [SerializeField] private KeyCode playerMenuButtonKey;
 
-    //Input Events
-    //movement events
-    public static event Action playerMoveForward;
-    public static event Action playerMoveBackward;
-    public static event Action playerMoveLeft;
-    public static event Action playerMoveRight;
+    [Header("Camera")]
+    [SerializeField] private Transform cameraTransform;
+    private Vector2 playerLook;
 
-    //object interact events
-    public static event Action playerObjectInteract;
-    public static event Action playerObjectDrop;
-    public static event Action playerObjectThrow;
+    [Header("Player")]
+    [SerializeField] private float movementSpeed;
+    private CharacterController characterController;
+    [SerializeField] private float mass;
+    private Vector3 velocity;
+    [SerializeField] private float jumpSpeed;
 
-    //menu events
-    public static event Action playerPause;
-    public static event Action playerMenu;
+    private void Awake()
+    {
+        characterController = GetComponent<CharacterController>();
+    }
 
-    //some player events IDK
-    public static void OnPlayerMoveForward() { playerMoveForward?.Invoke(); }
-    public static void OnPlayerMoveBackward() { playerMoveBackward?.Invoke(); }
-    public static void OnPlayerMoveLeft() { playerMoveLeft?.Invoke(); }
-    public static void OnPlayerMoveRight() { playerMoveRight?.Invoke(); }
-    public static void OnPlayerObjectInteract() { playerObjectInteract?.Invoke(); }
-    public static void OnPlayerObjectDrop() { playerObjectDrop?.Invoke(); }
-    public static void OnPlayerThrow() { playerObjectThrow?.Invoke(); }
-    public static void OnPlayerPause() { playerPause?.Invoke(); }
-    public static void OnPlayerMenu() { playerMenu?.Invoke(); }
+    private void Start()
+    {
+        GameManager.SetPlayerCursorLocked(true); //call to lock player cursor to to center
+    }
+
+    private void Update()
+    {
+        UpdateGravity();
+        CameraLook(); //player look around
+        PlayerMove(); //player move around
+    }
+
+    private void UpdateGravity()
+    {
+        var gravity = Physics.gravity * mass * Time.deltaTime;
+
+        if (characterController.isGrounded)
+        {
+            velocity.y = -1f;
+        }
+        else
+        {
+            velocity.y += gravity.y;
+        }
+    }
+
+    private void CameraLook()
+    {
+        playerLook.x += Input.GetAxis("Mouse X") * Settings.GetMouseSensitivity();
+        playerLook.y += Input.GetAxis("Mouse Y") * Settings.GetMouseSensitivity();
+
+        playerLook.y = Mathf.Clamp(playerLook.y, -80.0f, 80.0f);
+
+        cameraTransform.localRotation = Quaternion.Euler(-playerLook.y, 0, 0);
+        transform.localRotation = Quaternion.Euler(0, playerLook.x, 0);    
+    }
+
+    private void PlayerMove()
+    {
+        var x = Input.GetAxis("Horizontal");
+        var y = Input.GetAxis("Vertical");
+
+        var input = new Vector3();
+        input += transform.forward * y;
+        input += transform.right * x;
+        input = Vector3.ClampMagnitude(input, 1f);
+
+        if (Input.GetKeyDown(playerJump) && characterController.isGrounded)  
+        {
+            velocity.y = jumpSpeed;
+        }
+
+        characterController.Move((input * movementSpeed + velocity) * Time.deltaTime);
+    }
 }

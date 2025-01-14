@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class ShopStats
 {
+    //this file is for data to do with the shop eg money, rent, shop upgrades etc
+
     private static string shopName;
-    private static int money;
+    private static float money;
     private static Dictionary<string, bool> shopUnlocks = new Dictionary<string, bool>() 
     {
         //items go in here and put default bool of false
@@ -17,8 +19,8 @@ public class ShopStats
     public static string GetShopName() {  return shopName; }
     public static void SetShopName(string newShopName) { shopName = newShopName; }
 
-    public static int GetMoney() { return money; }
-    public static void SetMoney(int cost) { money = money - cost; }
+    public static float GetMoney() { return money; }
+    public static void SetMoney(float cost) { money = money - cost; }
 
     public static void AddShopItem(string itemName, bool status)
     {
