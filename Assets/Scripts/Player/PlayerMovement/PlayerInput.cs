@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    //based of this yt video https://www.youtube.com/watch?v=HHzQMYxtmU4
+
     [Header("Movement Keybinds")]
     [SerializeField] private KeyCode playerJump;
 
