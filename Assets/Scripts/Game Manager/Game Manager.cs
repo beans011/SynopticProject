@@ -6,21 +6,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    static GameManager instance;
-    static GameManager GetInstance()
+    public static GameManager instance;
+
+    private void Awake()
     {
         if (instance == null)
         {
-            instance = new GameObject("GameManager").AddComponent<GameManager>();
-            instance.Initialise();
-        }
-
-        return instance;
+            instance = this;
+        }          
     }
 
-    private void Initialise()
+    private void Start()
     {
-        //stuff for on start up here
+        EventManager.GamePause += PauseGame;
+        EventManager.GameResume += ResumeGame;
     }
 
     private static bool playerCursorLocked = true; //set player cursor to be hidden or usable
@@ -48,4 +47,13 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    public static void PauseGame()
+    {
+        Time.timeScale = 0.0f;
+    }
+
+    public static void ResumeGame()
+    {
+        Time.timeScale = 1.0f;
+    }
 }
