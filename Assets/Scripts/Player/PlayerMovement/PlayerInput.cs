@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
@@ -31,6 +32,11 @@ public class PlayerInput : MonoBehaviour
     private Vector3 velocity;
     [SerializeField] private float jumpSpeed;
 
+    [Header("Object Interaction")]
+    [SerializeField] private Transform holdPos;
+    [SerializeField] private float interactRange;
+    private GameObject holdingObject;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -49,6 +55,7 @@ public class PlayerInput : MonoBehaviour
         UpdateGravity(); //manual gravity cause why not
         CameraLook(); //player look around
         PlayerMove(); //player move around
+        PlayerPickUpBoxes(); //playe can pick up and drop boxes
     }
 
     private void UpdateGravity()
@@ -121,5 +128,66 @@ public class PlayerInput : MonoBehaviour
                 EventManager.OnGamePause();
             }
         }
+    }
+
+    private void PlayerPickUpBoxes()
+    {
+        if (Input.GetKeyDown(playerObjectInteractKey))
+        {
+            if (holdingObject == null) 
+            {             
+                RaycastHit hit;
+               
+                if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
+                {               
+                    if (hit.transform.gameObject.tag == "canPickUp")
+                    {
+                        PickUpObject(hit.transform.gameObject);
+                    }
+                }
+            }
+
+            if (holdingObject != null) 
+            {
+                //insert code to access the an interact function on the object
+                Debug.Log("U ARE INTERACTING WITH THE OBJECT");
+            }         
+        }     
+
+        if (Input.GetKeyDown(playerObjectDropKey) && holdingObject != null) 
+        {
+            DropObject();
+        }
+
+        if (Input.GetKeyDown(playerObjectThrowKey) && holdingObject != null)
+        {
+            ThrowObject();
+        }
+    }
+
+    private void PickUpObject(GameObject objectToPickUp) 
+    { 
+        holdingObject = objectToPickUp; //assigns the picked up object to holding object so it can be easily interacted with 
+        holdingObject.transform.parent = holdPos; //sets parent
+        holdingObject.transform.localPosition = new Vector3(0, 0, 0); //sets object to position of heldObjPos
+        holdingObject.GetComponent<Rigidbody>().isKinematic = true;
+        EventManager.OnPickUpObject(); //call to do some other stuff like ui shit
+    }
+
+    private void DropObject()
+    {
+        holdingObject.GetComponent<Rigidbody>().isKinematic = false;
+        holdingObject.transform.parent = null;
+        EventManager.OnDropObject();
+        holdingObject = null;
+    }
+
+    private void ThrowObject()
+    {
+        holdingObject.GetComponent<Rigidbody>().isKinematic = false;
+        holdingObject.transform.parent = null;
+        EventManager.OnDropObject();
+        holdingObject.GetComponent<Rigidbody>().AddForce(transform.forward * 500f); //throw for the shits and giggles
+        holdingObject = null;
     }
 }

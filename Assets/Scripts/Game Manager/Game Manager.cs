@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
         EventManager.GameResume += ResumeGame;
     }
 
-    private static bool playerCursorLocked = true; //set player cursor to be hidden or usable
-
     public static bool GetPlayerCursorLocked()
     {
         if (Cursor.lockState == CursorLockMode.Locked) 

@@ -16,6 +16,7 @@ public class EventManager : MonoBehaviour
         }           
     }
 
+    #region UIEvents
     public static event Action GamePause;
 
     public static event Action GameResume;
@@ -29,4 +30,19 @@ public class EventManager : MonoBehaviour
     {
         GameResume?.Invoke();
     }
+    #endregion
+
+    #region ObjectInteractionEvents
+    public static event Action PickUpObject;
+    public static event Action DropObject;
+
+    public static void OnPickUpObject()
+    {
+        PickUpObject?.Invoke();
+    }
+    public static void OnDropObject()
+    {
+        DropObject?.Invoke();
+    }
+    #endregion
 }
