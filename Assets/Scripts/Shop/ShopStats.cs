@@ -9,84 +9,94 @@ public class ShopStats
 
     private static string shopName;
     private static float money;
-    private static Dictionary<string, bool> shopUnlocks = new Dictionary<string, bool>() 
-    {
-        //items go in here and put default bool of false
-        {"Fiend Energy Drink", false},
 
-    };
+    //VERY IMPORTANT!!!!!!
+    //THE PRODUCT ID MUST MATCH ONE OF THESE IN THIS DICTIONARY JUST FOR EASE OF SAVING THIS FILE LATER ON
+    private static Dictionary<int, Item> itemUnlocks = new Dictionary<int, Item>();
 
     public static string GetShopName() {  return shopName; }
     public static void SetShopName(string newShopName) { shopName = newShopName; }
 
     public static float GetMoney() { return money; }
-    public static void SetMoney(float cost) { money = money - cost; }
+    public static void SetMoney(float cost) { money = money + cost; }
 
-    public static void AddShopItem(string itemName, bool status)
+    //dictionary helper methods
+    public static void AddShopItem(Item item)
     {
-        if (!shopUnlocks.ContainsKey(itemName))
+        Debug.Log("yo");
+
+        if (!itemUnlocks.ContainsKey(item.productID))
         {
-            shopUnlocks[itemName] = status;
-            Console.WriteLine($"Added: {itemName} with status {status}");
+            itemUnlocks.Add(item.productID, item);
+            Debug.Log($"Added: {item.productID} with name {item.productName}");
         }
 
         else
         {
-            Console.WriteLine($"Item {itemName} already exists.");
+            Debug.Log($"Item {item.productID} already exists");
         }
     }
 
-    public static void RemoveShopItem(string itemName)
+    public static bool ShopItemExists(int itemID)
     {
-        if (shopUnlocks.Remove(itemName))
-        {
-            Console.WriteLine($"Removed: {itemName}");
+        if (itemUnlocks.ContainsKey(itemID)) 
+        { 
+            return true; 
         }
 
         else
         {
-            Console.WriteLine($"Item {itemName} not found.");
+            return false;
         }
     }
 
-    public static bool ShopItemExists(string itemName)
+    public static bool? GetShopItemStatus(int itemID)
     {
-        return shopUnlocks.ContainsKey(itemName);
-    }
-
-    public static bool? GetShopItemStatus(string itemName)
-    {
-        if (shopUnlocks.TryGetValue(itemName, out bool status))
+        if (itemUnlocks.ContainsKey(itemID))
         {
-            return status;
+            return itemUnlocks[itemID].itemUnlocked;
         }
 
-        Console.WriteLine($"Item {itemName} not found.");
+        Debug.Log($"Item {itemID} not found");
 
         return null;
     }
 
-    public static void UpdateShopItemStatus(string itemName, bool newStatus)
+    public static void UpdateShopItemStatus(int itemID, bool newStatus)
     {
-        if (shopUnlocks.ContainsKey(itemName))
+        if (itemUnlocks.ContainsKey(itemID))
         {
-            shopUnlocks[itemName] = newStatus;
-            Console.WriteLine($"Updated: {itemName} to status {newStatus}");
+            itemUnlocks[itemID].itemUnlocked = newStatus;
+            Debug.Log($"Updated: {itemID} to status {newStatus}");
         }
 
         else
         {
-            Console.WriteLine($"Item {itemName} not found.");
+            Debug.Log($"Item {itemID} not found");
         }
     }
 
     public static void PrintAllShopItems()
     {
-        Console.WriteLine("All Items:");
+        Debug.Log("All Items:");
 
-        foreach (var item in shopUnlocks)
+        foreach (var item in itemUnlocks)
         {
-            Console.WriteLine($"- {item.Key}: {item.Value}");
+            Debug.Log($"- {item.Key}: {item.Value}");
+        }
+    }
+
+    public static Item GetItemData(int itemID)
+    {
+        if (itemUnlocks.ContainsKey(itemID))
+        {
+            return itemUnlocks[itemID];
+        }
+
+        else 
+        {
+            Debug.Log($"Item {itemID} not found");
+            return null; 
         }
     }
 }

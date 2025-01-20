@@ -13,7 +13,7 @@ public class EventManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        }           
+        }
     }
 
     #region UIEvents
