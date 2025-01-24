@@ -16,19 +16,9 @@ public class Item : ScriptableObject
     public string productDescription;
 
     [Header("Product Numbers")]
-    public float retailPrice;
+    public float marketPrice;
     public float playerSetPrice;
 
     [Header("Product Model")] //make a prefab of the model and then set it as this
     public GameObject productModel;
-
-    public void SetRetailPrice(float newRetailPrice)
-    {
-        retailPrice = newRetailPrice;
-    }    
-
-    public void SetPlayerSetPrice(float newPlayerSetPrice) 
-    { 
-        playerSetPrice = newPlayerSetPrice;
-    }
 }

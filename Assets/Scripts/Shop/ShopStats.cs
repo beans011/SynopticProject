@@ -23,8 +23,6 @@ public class ShopStats
     //dictionary helper methods
     public static void AddShopItem(Item item)
     {
-        Debug.Log("yo");
-
         if (!itemUnlocks.ContainsKey(item.productID))
         {
             itemUnlocks.Add(item.productID, item);
@@ -97,6 +95,62 @@ public class ShopStats
         {
             Debug.Log($"Item {itemID} not found");
             return null; 
+        }
+    }
+
+    public static float GetItemMarketPrice(int itemID)
+    {
+        if (itemUnlocks.ContainsKey(itemID))
+        {
+            return itemUnlocks[itemID].marketPrice;
+        }
+
+        else
+        {
+            Debug.Log($"Item {itemID} not found");
+            return 0;
+        }
+    }
+
+    public static void SetItemMarketPrice(int itemID, float newMarketPrice)
+    {
+        if (itemUnlocks.ContainsKey(itemID))
+        {
+            itemUnlocks[itemID].marketPrice = newMarketPrice;
+            Debug.Log("Set new Item Price: " +  itemID + " = " + itemUnlocks[itemID].marketPrice);
+        }
+
+        else
+        {
+            Debug.Log($"Item {itemID} not found");
+        }
+    }
+
+    public static float GetItemPlayerSetPrice(int itemID)
+    {
+        if (itemUnlocks.ContainsKey(itemID))
+        {
+            return itemUnlocks[itemID].playerSetPrice;
+        }
+
+        else
+        {
+            Debug.Log($"Item {itemID} not found");
+            return 0;
+        }
+    }
+
+    public static void SetItemPlayerSetPrice(int itemID, float newPlayerSetPrice)
+    {
+        if (itemUnlocks.ContainsKey(itemID))
+        {
+            itemUnlocks[itemID].marketPrice = newPlayerSetPrice;
+            Debug.Log("Set new Player Set Price: " + itemID + " = " + itemUnlocks[itemID].playerSetPrice);
+        }
+
+        else
+        {
+            Debug.Log($"Item {itemID} not found");
         }
     }
 }
