@@ -9,6 +9,8 @@ public class Item : ScriptableObject
     [Header("Product ID")]
     public int productID;
     public bool itemUnlocked = false;
+    public bool isItemIllegal;
+    public bool isIDRequired;
 
     [Header("Product Text")]
     public string productName;
@@ -18,6 +20,7 @@ public class Item : ScriptableObject
     [Header("Product Numbers")]
     public float marketPrice;
     public float playerSetPrice;
+    public float liscenseCost;
 
     [Header("Product Model")] //make a prefab of the model and then set it as this
     public GameObject productModel;

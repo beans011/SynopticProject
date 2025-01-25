@@ -8,7 +8,9 @@ public class ShopStats
     //this file is for data to do with the shop eg money, rent, shop upgrades etc
 
     private static string shopName;
-    private static float money;
+    private static float money, billsAmount;
+    private static float moralityMeter;
+    private static int shopXP, shopLevel; 
 
     //VERY IMPORTANT!!!!!!
     //THE PRODUCT ID MUST MATCH ONE OF THESE IN THIS DICTIONARY JUST FOR EASE OF SAVING THIS FILE LATER ON
@@ -19,6 +21,19 @@ public class ShopStats
 
     public static float GetMoney() { return money; }
     public static void SetMoney(float cost) { money = money + cost; }
+
+    public static float GetBillsAmount() { return billsAmount; }
+    public static void SetBillsAmount(float billCost) { billsAmount = billsAmount + billCost; }
+
+    public static float GetMoralityMeter() { return moralityMeter; }
+    public static void SetMoralityMeter(float moralityCost) { moralityMeter = moralityMeter + moralityCost; }
+
+    public static int GetShopXP() { return shopXP; }
+    public static void SetShopXP(int xpGained) { shopXP = shopXP + xpGained; }
+
+    public static int GetShopLevel() {  return shopLevel; }
+    public void SetShopLevel(int level) {  shopLevel = shopLevel + level; }
+
 
     //dictionary helper methods
     public static void AddShopItem(Item item)

@@ -24,7 +24,7 @@ public class ProductFactory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T)) 
+        if (Input.GetKeyDown(KeyCode.T)) //test code 
         {
             SpawnBoxOfItems(0);
         }
@@ -46,5 +46,6 @@ public class ProductFactory : MonoBehaviour
         Debug.Log(item.productID + " " + item.productName); //TESTING CODE
 
         //SPAWN CODE FOR BOXES HERE
+        //ONCE WRITTEN EXPLAIN IT IN THE SYSTEM EXPLANATION WORD FILE
     }
 }
