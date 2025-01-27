@@ -13,6 +13,7 @@ public class PlayerInput : MonoBehaviour
 
     [Header("Object Interact Keybinds")]
     [SerializeField] private KeyCode playerObjectInteractKey;
+    [SerializeField] private KeyCode playerObjectInteractSecondaryKey;
     [SerializeField] private KeyCode playerObjectDropKey;
     [SerializeField] private KeyCode playerObjectThrowKey;
 
@@ -142,17 +143,22 @@ public class PlayerInput : MonoBehaviour
                 {               
                     if (hit.transform.gameObject.tag == "canPickUp")
                     {
-                        PickUpObject(hit.transform.gameObject);
+                        PickUpObject(hit.transform.gameObject);                       
                     }
                 }
             }
 
             if (holdingObject != null) 
             {
-                //insert code to access the an interact function on the object
+                EventManager.OnCardboardBoxInteract();
                 Debug.Log("U ARE INTERACTING WITH THE OBJECT");
             }         
-        }     
+        }
+        
+        if (Input.GetKeyDown(playerObjectInteractSecondaryKey) && holdingObject != null)
+        {
+            EventManager.OnCardboardBoxInteractSecondary();
+        }
 
         if (Input.GetKeyDown(playerObjectDropKey) && holdingObject != null) 
         {
@@ -171,11 +177,19 @@ public class PlayerInput : MonoBehaviour
         holdingObject.transform.parent = holdPos; //sets parent
         holdingObject.transform.localPosition = new Vector3(0, 0, 0); //sets object to position of heldObjPos
         holdingObject.GetComponent<Rigidbody>().isKinematic = true;
+
+        if (holdingObject.GetComponent<CardboardBox>() != null) //check if held object has components for event attaching  
+        {
+            holdingObject.GetComponent<CardboardBox>().AttachEvents();
+        }
+        //add more of these when more interaction objects get added
+
         EventManager.OnPickUpObject(); //call to do some other stuff like ui shit
     }
 
     private void DropObject()
     {
+        DropObjectEventDetachment();
         holdingObject.GetComponent<Rigidbody>().isKinematic = false;
         holdingObject.transform.parent = null;
         EventManager.OnDropObject();
@@ -184,10 +198,19 @@ public class PlayerInput : MonoBehaviour
 
     private void ThrowObject()
     {
+        DropObjectEventDetachment();
         holdingObject.GetComponent<Rigidbody>().isKinematic = false;
-        holdingObject.transform.parent = null;
+        holdingObject.transform.parent = null;       
         EventManager.OnDropObject();
         holdingObject.GetComponent<Rigidbody>().AddForce(transform.forward * 500f); //throw for the shits and giggles
         holdingObject = null;
+    }
+
+    private void DropObjectEventDetachment()
+    {
+        if (holdingObject.GetComponent<CardboardBox>() != null) //check if held object has components for event attaching  
+        {
+            holdingObject.GetComponent<CardboardBox>().DetachEvents();
+        }
     }
 }

@@ -35,6 +35,8 @@ public class EventManager : MonoBehaviour
     #region ObjectInteractionEvents
     public static event Action PickUpObject;
     public static event Action DropObject;
+    public static event Action CardboardBoxInteract;
+    public static event Action CardboardBoxInteractSecondary;
 
     public static void OnPickUpObject()
     {
@@ -43,6 +45,15 @@ public class EventManager : MonoBehaviour
     public static void OnDropObject()
     {
         DropObject?.Invoke();
+    }
+    public static void OnCardboardBoxInteract()
+    {
+        CardboardBoxInteract?.Invoke();
+    }
+
+    public static void OnCardboardBoxInteractSecondary()
+    {
+        CardboardBoxInteractSecondary?.Invoke();
     }
     #endregion
 }
