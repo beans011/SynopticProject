@@ -42,6 +42,12 @@ public class ProductFactory : MonoBehaviour
 
     public void SpawnBoxOfItems(int itemID)
     {
+        if (!ShopStats.ShopItemExists(itemID))
+        {
+            Debug.LogError($"NO CANNY FIND {itemID}");
+            return;
+        }
+
         Item item = ShopStats.GetItemData(itemID);
 
         Debug.Log(ShopStats.ShopItemExists(1)); //test code

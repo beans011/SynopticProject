@@ -148,14 +148,14 @@ public class PlayerInput : MonoBehaviour
                 }
             }
 
-            if (holdingObject != null) 
+            if (holdingObject != null) //add here that need to be in correct are to interact
             {
                 EventManager.OnCardboardBoxInteract();
                 Debug.Log("U ARE INTERACTING WITH THE OBJECT");
             }         
         }
         
-        if (Input.GetKeyDown(playerObjectInteractSecondaryKey) && holdingObject != null)
+        if (Input.GetKeyDown(playerObjectInteractSecondaryKey) && holdingObject != null) //add in here that neeed to be in correct are to interact
         {
             EventManager.OnCardboardBoxInteractSecondary();
         }
