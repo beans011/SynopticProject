@@ -50,8 +50,8 @@ public class ProductFactory : MonoBehaviour
 
         Item item = ShopStats.GetItemData(itemID);
 
-        Debug.Log(ShopStats.ShopItemExists(1)); //test code
-        Debug.Log(item.productID + " " + item.productName); //TESTING CODE
+        //Debug.Log(ShopStats.ShopItemExists(1)); //test code
+        //Debug.Log(item.productID + " " + item.productName); //TESTING CODE
 
         //SPAWN CODE FOR BOXES HERE
         //ONCE WRITTEN EXPLAIN IT IN THE SYSTEM EXPLANATION WORD FILE

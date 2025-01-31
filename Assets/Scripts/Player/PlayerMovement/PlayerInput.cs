@@ -56,7 +56,7 @@ public class PlayerInput : MonoBehaviour
         UpdateGravity(); //manual gravity cause why not
         CameraLook(); //player look around
         PlayerMove(); //player move around
-        PlayerPickUpBoxes(); //playe can pick up and drop boxes
+        PlayerInteraction(); //playe can pick up and drop boxes
     }
 
     private void UpdateGravity()
@@ -131,33 +131,60 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private void PlayerPickUpBoxes()
+    private void PlayerInteraction()
     {
         if (Input.GetKeyDown(playerObjectInteractKey))
-        {
-            if (holdingObject == null) 
-            {             
-                RaycastHit hit;
+        {            
+            RaycastHit hit;
                
-                if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
-                {               
+            if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
+            {
+                if (holdingObject == null) //picking up box
+                {
                     if (hit.transform.gameObject.tag == "canPickUp")
                     {
-                        PickUpObject(hit.transform.gameObject);                       
+                        PickUpObject(hit.transform.gameObject);
+                    }
+                }
+
+                if (holdingObject != null) //putting item onto shelf
+                { 
+                    if (hit.transform.gameObject.tag == "shelfSign")
+                    {
+                        //check if item can be added to the shelf
+                        if (hit.transform.gameObject.GetComponent<Shelf>().GetItem() == null || holdingObject.GetComponent<CardboardBox>().GetItem() == hit.transform.gameObject.GetComponent<Shelf>().GetItem())
+                        {
+                            hit.transform.gameObject.GetComponent<Shelf>().AddItemsToShelf(1, holdingObject.GetComponent<CardboardBox>().GetItem()); //validation in here to change to shelf status
+
+                            if (hit.transform.gameObject.GetComponent<Shelf>().GetShelfFullStatus() == false)
+                            {
+                                holdingObject.GetComponent<CardboardBox>().SubtractFromBox();                            
+                            }                           
+                        }                       
+                    }
+                }
+            }                
+        }
+        
+        if (Input.GetKeyDown(playerObjectInteractSecondaryKey)) //if statement to remove items from shelf and add it to the box if they can
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
+            {
+                if (holdingObject != null)
+                {
+                    if (hit.transform.gameObject.tag == "shelfSign")
+                    {
+                        //check if item can be added to box
+                        if (holdingObject.GetComponent<CardboardBox>().GetItem() == null || holdingObject.GetComponent<CardboardBox>().GetItem() == hit.transform.gameObject.GetComponent<Shelf>().GetItem())
+                        {
+                            holdingObject.GetComponent<CardboardBox>().AddToBox(hit.transform.gameObject.GetComponent<Shelf>().GetItem());
+                            hit.transform.gameObject.GetComponent<Shelf>().RemoveItemsFromShelf(1);
+                        }                       
                     }
                 }
             }
-
-            if (holdingObject != null) //add here that need to be in correct are to interact
-            {
-                EventManager.OnCardboardBoxInteract();
-                Debug.Log("U ARE INTERACTING WITH THE OBJECT");
-            }         
-        }
-        
-        if (Input.GetKeyDown(playerObjectInteractSecondaryKey) && holdingObject != null) //add in here that neeed to be in correct are to interact
-        {
-            EventManager.OnCardboardBoxInteractSecondary();
         }
 
         if (Input.GetKeyDown(playerObjectDropKey) && holdingObject != null) 
@@ -178,18 +205,11 @@ public class PlayerInput : MonoBehaviour
         holdingObject.transform.localPosition = new Vector3(0, 0, 0); //sets object to position of heldObjPos
         holdingObject.GetComponent<Rigidbody>().isKinematic = true;
 
-        if (holdingObject.GetComponent<CardboardBox>() != null) //check if held object has components for event attaching  
-        {
-            holdingObject.GetComponent<CardboardBox>().AttachEvents();
-        }
-        //add more of these when more interaction objects get added
-
         EventManager.OnPickUpObject(); //call to do some other stuff like ui shit
     }
 
     private void DropObject()
     {
-        DropObjectEventDetachment();
         holdingObject.GetComponent<Rigidbody>().isKinematic = false;
         holdingObject.transform.parent = null;
         EventManager.OnDropObject();
@@ -198,19 +218,10 @@ public class PlayerInput : MonoBehaviour
 
     private void ThrowObject()
     {
-        DropObjectEventDetachment();
         holdingObject.GetComponent<Rigidbody>().isKinematic = false;
         holdingObject.transform.parent = null;       
         EventManager.OnDropObject();
         holdingObject.GetComponent<Rigidbody>().AddForce(transform.forward * 500f); //throw for the shits and giggles
         holdingObject = null;
-    }
-
-    private void DropObjectEventDetachment()
-    {
-        if (holdingObject.GetComponent<CardboardBox>() != null) //check if held object has components for event attaching  
-        {
-            holdingObject.GetComponent<CardboardBox>().DetachEvents();
-        }
     }
 }
