@@ -54,7 +54,6 @@ public class ProductFactory : MonoBehaviour
         //Debug.Log(item.productID + " " + item.productName); //TESTING CODE
 
         //SPAWN CODE FOR BOXES HERE
-        //ONCE WRITTEN EXPLAIN IT IN THE SYSTEM EXPLANATION WORD FILE
         GameObject newBox = Instantiate(cardboardBox, spawnLocation) as GameObject;
         CardboardBox cardboardBoxScript = newBox.GetComponent<CardboardBox>();
         cardboardBoxScript.SetUpBox(item);
