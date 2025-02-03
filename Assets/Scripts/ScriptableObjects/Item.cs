@@ -26,5 +26,6 @@ public class Item : ScriptableObject
 
     [Header("Product Model")] //make a prefab of the model and then set it as this
     public GameObject productModel;
-    public Material productImage; //take a screen shot of the model in game so it can be placed on cardboard boxes
+    public Material productMaterial; //take a screen shot of the model in game so it can be placed on cardboard boxes
+    public Sprite productImage; //image for ui use - take the photo on whatever the background is gonna be
 }

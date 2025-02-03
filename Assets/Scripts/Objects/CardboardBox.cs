@@ -73,8 +73,8 @@ public class CardboardBox : MonoBehaviour
 
         if (itemInBox != null) 
         {
-            productImage01.GetComponent<MeshRenderer>().material = itemInBox.productImage;
-            productImage02.GetComponent<MeshRenderer>().material = itemInBox.productImage;
+            productImage01.GetComponent<MeshRenderer>().material = itemInBox.productMaterial;
+            productImage02.GetComponent<MeshRenderer>().material = itemInBox.productMaterial;
         }
         else
         {

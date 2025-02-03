@@ -92,7 +92,7 @@ public class Shelf : MonoBehaviour
     {
         if (itemOnShelf != null)
         {
-            productImage.GetComponent<MeshRenderer>().material = itemOnShelf.productImage;
+            productImage.GetComponent<MeshRenderer>().material = itemOnShelf.productMaterial;
             priceText.GetComponent<TextMeshPro>().SetText("£:" + itemOnShelf.playerSetPrice.ToString());
         }
         else
