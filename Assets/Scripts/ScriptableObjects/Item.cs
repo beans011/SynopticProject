@@ -23,6 +23,7 @@ public class Item : ScriptableObject
     public float deliveryCost;
     public float liscenseCost;
     public int maxStackSize;
+    public int levelRequirement;
 
     [Header("Product Model")] //make a prefab of the model and then set it as this
     public GameObject productModel;
