@@ -3178,6 +3178,9 @@ GameObject:
   m_Component:
   - component: {fileID: 176293404}
   - component: {fileID: 176293403}
+  - component: {fileID: 176293408}
+  - component: {fileID: 176293407}
+  - component: {fileID: 176293406}
   - component: {fileID: 176293405}
   m_Layer: 0
   m_Name: Player
@@ -3193,7 +3196,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176293401}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 356c8a1b0392515468c3758f11757917, type: 3}
   m_Name: 
@@ -3254,6 +3257,56 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &176293406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176293401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae4c8fd18e36504a8618780ee73fe66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObjectInteractKey: 101
+  playerObjectInteractSecondaryKey: 102
+  playerObjectDropKey: 114
+  playerObjectThrowKey: 116
+  holdPos: {fileID: 729193140}
+  interactRange: 8
+  cameraTransform: {fileID: 963194228}
+--- !u!114 &176293407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176293401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fefcc82616ce6646b79ecc7276beda3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5
+  mass: 1
+  jumpSpeed: 5
+  playerJump: 32
+  playerPauseButtonKey: 27
+  playerMenuButtonKey: 9
+--- !u!114 &176293408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176293401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00649e4ad01765a40a6f27b8121cff0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 963194228}
 --- !u!43 &195264509
 Mesh:
   m_ObjectHideFlags: 0
@@ -18623,7 +18676,7 @@ Transform:
   m_GameObject: {fileID: 1067982643}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -27.089998, y: 2, z: 44.756996}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
