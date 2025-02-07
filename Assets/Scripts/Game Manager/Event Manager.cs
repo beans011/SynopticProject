@@ -21,6 +21,12 @@ public class EventManager : MonoBehaviour
 
     public static event Action GameResume;
 
+    public static event Action OpenTabMenu;
+
+    public static event Action CloseTabMenu;
+
+    public static event Action UpdateTimeDisplay;
+
     public static void OnGamePause()
     {
         GamePause?.Invoke();
@@ -29,6 +35,21 @@ public class EventManager : MonoBehaviour
     public static void OnGameResume()
     {
         GameResume?.Invoke();
+    }
+
+    public static void OnOpenTabMenu()
+    {
+        OpenTabMenu?.Invoke();
+    }
+
+    public static void OnCloseTabMenu() 
+    {
+        CloseTabMenu?.Invoke();
+    }
+
+    public static void OnUpdateTimeDisplay()
+    { 
+        UpdateTimeDisplay?.Invoke();
     }
     #endregion
 

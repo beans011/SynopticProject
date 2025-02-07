@@ -25,6 +25,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     private Vector2 playerLook;
     private bool lockCameraMovement;
+    private bool isMenuOpen = false;
 
     [Header("Player")]
     [SerializeField] private float movementSpeed;
@@ -32,6 +33,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private float mass;
     private Vector3 velocity;
     [SerializeField] private float jumpSpeed;
+    private bool canMove = true;
 
     [Header("Object Interaction")]
     [SerializeField] private Transform holdPos;
@@ -46,8 +48,20 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         GameManager.SetPlayerCursorLocked(true); //call to lock player cursor to to center
+
         EventManager.GamePause += LockCameraMovement;
+        EventManager.GamePause += SetCanMoveFalse;
+
         EventManager.GameResume += UnlockCameraMovement;
+        EventManager.GameResume += SetCanMoveTrue;
+
+        EventManager.OpenTabMenu += LockCameraMovement;
+        EventManager.OpenTabMenu += SetMenuOpenTrue;
+        EventManager.OpenTabMenu += SetCanMoveFalse;
+
+        EventManager.CloseTabMenu += SetMenuOpenFalse;
+        EventManager.CloseTabMenu += UnlockCameraMovement;
+        EventManager.CloseTabMenu += SetCanMoveTrue;
     }
 
     private void Update()
@@ -58,21 +72,8 @@ public class PlayerInput : MonoBehaviour
         PlayerMove(); //player move around
         PlayerInteraction(); //playe can pick up and drop boxes
     }
-
-    private void UpdateGravity()
-    {
-        var gravity = Physics.gravity * mass * Time.deltaTime;
-
-        if (characterController.isGrounded)
-        {
-            velocity.y = -1f;
-        }
-        else
-        {
-            velocity.y += gravity.y;
-        }
-    }
-
+    
+    #region CameraStuff
     private void CameraLook()
     {
         if (lockCameraMovement == false)
@@ -97,22 +98,31 @@ public class PlayerInput : MonoBehaviour
         lockCameraMovement = false;
     }
 
+    private void SetMenuOpenTrue(){ isMenuOpen = true; }
+
+    private void SetMenuOpenFalse() { isMenuOpen = false; }
+    #endregion
+
+    #region PlayerMovement
     private void PlayerMove()
     {
-        var x = Input.GetAxis("Horizontal");
-        var y = Input.GetAxis("Vertical");
-
-        var input = new Vector3();
-        input += transform.forward * y;
-        input += transform.right * x;
-        input = Vector3.ClampMagnitude(input, 1f);
-
-        if (Input.GetKeyDown(playerJump) && characterController.isGrounded)  
+        if (canMove == true)
         {
-            velocity.y = jumpSpeed;
-        }
+            var x = Input.GetAxis("Horizontal");
+            var y = Input.GetAxis("Vertical");
 
-        characterController.Move((input * movementSpeed + velocity) * Time.deltaTime);
+            var input = new Vector3();
+            input += transform.forward * y;
+            input += transform.right * x;
+            input = Vector3.ClampMagnitude(input, 1f);
+
+            if (Input.GetKeyDown(playerJump) && characterController.isGrounded)
+            {
+                velocity.y = jumpSpeed;
+            }
+
+            characterController.Move((input * movementSpeed + velocity) * Time.deltaTime);
+        }       
     }
 
     private void PlayerPaused()
@@ -129,8 +139,47 @@ public class PlayerInput : MonoBehaviour
                 EventManager.OnGamePause();
             }
         }
+
+        if (Input.GetKeyDown(playerMenuButtonKey) && Time.timeScale == 1.0f) 
+        { 
+            if (isMenuOpen == true)
+            {
+                EventManager.OnCloseTabMenu();
+            }
+
+            else if (isMenuOpen == false) 
+            {
+                EventManager.OnOpenTabMenu();
+            }           
+        }
     }
 
+    private void SetCanMoveTrue()
+    {
+        canMove = true;
+    }
+
+    private void SetCanMoveFalse()
+    {
+        canMove = false;
+    }
+
+    private void UpdateGravity()
+    {
+        var gravity = Physics.gravity * mass * Time.deltaTime;
+
+        if (characterController.isGrounded)
+        {
+            velocity.y = -1f;
+        }
+        else
+        {
+            velocity.y += gravity.y;
+        }
+    }
+    #endregion
+
+    #region PlayerInteraction
     private void PlayerInteraction()
     {
         if (Input.GetKeyDown(playerObjectInteractKey))
@@ -224,4 +273,5 @@ public class PlayerInput : MonoBehaviour
         holdingObject.GetComponent<Rigidbody>().AddForce(transform.forward * 500f); //throw for the shits and giggles
         holdingObject = null;
     }
+    #endregion
 }
