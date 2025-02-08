@@ -122,8 +122,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2795985727856506381}
-        m_TargetAssemblyTypeName: BuyProductInfoDisplay, Assembly-CSharp
+      - m_Target: {fileID: 233767027069775856}
+        m_TargetAssemblyTypeName: BuyProductInfoController, Assembly-CSharp
         m_MethodName: BuyProductLicense
         m_Mode: 1
         m_Arguments:
@@ -159,7 +159,8 @@ GameObject:
   - component: {fileID: 1654475661775204632}
   - component: {fileID: 6381309973868291172}
   - component: {fileID: 3123648586899813013}
-  - component: {fileID: 2795985727856506381}
+  - component: {fileID: 233767027069775856}
+  - component: {fileID: 557407740554414977}
   m_Layer: 5
   m_Name: ItemDisplayUI
   m_TagString: Untagged
@@ -251,7 +252,7 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2795985727856506381
+--- !u!114 &233767027069775856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,11 +261,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 366777787581654641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c8a504a1e2b3648a0546922c5d07f6, type: 3}
+  m_Script: {fileID: 11500000, guid: addeeaa40fb847e4b9f4f89eed5c2969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: c5da7551ad0791a4b9188988059aa46f, type: 2}
-  itemImageDisplay: {fileID: 1502712572988755067}
+--- !u!114 &557407740554414977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366777787581654641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fa3a990e7d75343beb7c88f53fd150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemImageDisplay: {fileID: 5658526015996172810}
   itemNameText: {fileID: 1767423418240073472}
   itemDescriptionText: {fileID: 986366875677614043}
   itemPriceText: {fileID: 1206501739089356126}
@@ -1766,8 +1779,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2795985727856506381}
-        m_TargetAssemblyTypeName: BuyProductInfoDisplay, Assembly-CSharp
+      - m_Target: {fileID: 233767027069775856}
+        m_TargetAssemblyTypeName: BuyProductInfoController, Assembly-CSharp
         m_MethodName: BuyItem
         m_Mode: 1
         m_Arguments:

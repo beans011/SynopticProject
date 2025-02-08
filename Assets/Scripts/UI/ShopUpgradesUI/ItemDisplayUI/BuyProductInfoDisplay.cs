@@ -19,16 +19,9 @@ public class BuyProductInfoDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelRequiredText;
     [SerializeField] private TextMeshProUGUI licenseCostText;
 
-    // Start is called before the first frame update
     void Start()
     {
         ConfigureItemDisplay();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void ConfigureItemDisplay()

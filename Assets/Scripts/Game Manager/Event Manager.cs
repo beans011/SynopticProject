@@ -16,6 +16,14 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    public static event Action ShopLevelUp;
+    
+    //CALL THIS ONE ON SHOP LEVEL UP
+    public static void OnShopLevelUp()
+    {
+        ShopLevelUp?.Invoke();
+    }
+
     #region UIEvents
     public static event Action GamePause;
 
