@@ -33,6 +33,10 @@ public class EventManager : MonoBehaviour
 
     public static event Action CloseTabMenu;
 
+    public static event Action OpenCheatConsole;
+
+    public static event Action CloseCheatConsole;
+
     public static event Action UpdateTimeDisplay;
 
     public static void OnGamePause()
@@ -53,6 +57,16 @@ public class EventManager : MonoBehaviour
     public static void OnCloseTabMenu() 
     {
         CloseTabMenu?.Invoke();
+    }
+
+    public static void OnOpenCheatConsole()
+    {
+        OpenCheatConsole?.Invoke();
+    }
+
+    public static void OnCloseCheatConsole() 
+    { 
+        CloseCheatConsole?.Invoke();
     }
 
     public static void OnUpdateTimeDisplay()

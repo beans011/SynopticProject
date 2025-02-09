@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
 
         EventManager.CloseTabMenu += SetCanMoveTrue;
         EventManager.CloseTabMenu += SetMenuOpenFalse;
+
+        EventManager.OpenCheatConsole += SetCanMoveFalse;
+
+        EventManager.CloseCheatConsole += SetCanMoveTrue;
     }
 
     void Update()

@@ -18,6 +18,10 @@ public class PlayerCamera : MonoBehaviour
         EventManager.OpenTabMenu += LockCameraMovement;
 
         EventManager.CloseTabMenu += UnlockCameraMovement;
+
+        EventManager.OpenCheatConsole += LockCameraMovement;
+
+        EventManager.CloseCheatConsole += UnlockCameraMovement;
     }
 
     void Update()

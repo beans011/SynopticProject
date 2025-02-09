@@ -30,10 +30,17 @@ public class GameManager : MonoBehaviour
     {
         EventManager.GamePause += PauseGame;
         EventManager.GamePause += UnlockPlayerCursor;
+
         EventManager.GameResume += LockPlayerCursor;
         EventManager.GameResume += ResumeGame;
+
         EventManager.OpenTabMenu += UnlockPlayerCursor;
+
         EventManager.CloseTabMenu += LockPlayerCursor;
+
+        EventManager.OpenCheatConsole += UnlockPlayerCursor;
+
+        EventManager.CloseCheatConsole += LockPlayerCursor;
 
         ConfigureTime();
     }

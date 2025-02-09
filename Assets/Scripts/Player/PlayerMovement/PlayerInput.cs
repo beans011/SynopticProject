@@ -62,6 +62,12 @@ public class PlayerInput : MonoBehaviour
         EventManager.CloseTabMenu += SetMenuOpenFalse;
         EventManager.CloseTabMenu += UnlockCameraMovement;
         EventManager.CloseTabMenu += SetCanMoveTrue;
+
+        EventManager.OpenCheatConsole += LockCameraMovement;
+        EventManager.OpenCheatConsole += SetCanMoveFalse;
+
+        EventManager.CloseCheatConsole += UnlockCameraMovement;
+        EventManager.CloseCheatConsole += SetCanMoveTrue;
     }
 
     private void Update()

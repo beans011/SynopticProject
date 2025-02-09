@@ -20,8 +20,16 @@ public class ShopStats
     public static void SetShopName(string newShopName) { shopName = newShopName; }
 
     public static float GetMoney() { return money; }
-    public static void AddMoney(float amount) { money += amount; }
-    public static void RemoveMoney(float amount) {  money -= amount; }
+    public static void AddMoney(float amount) 
+    { 
+        money += amount;
+        Debug.Log(money);
+    }
+    public static void RemoveMoney(float amount) 
+    {  
+        money -= amount;
+        Debug.Log(money);
+    }
 
     public static float GetBillsAmount() { return billsAmount; }
     public static void SetBillsAmount(float billCost) { billsAmount = billsAmount + billCost; }
