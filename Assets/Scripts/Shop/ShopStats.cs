@@ -41,7 +41,12 @@ public class ShopStats
     public static void SetShopXP(int xpGained) { shopXP = shopXP + xpGained; }
 
     public static int GetShopLevel() {  return shopLevel; }
-    public void SetShopLevel(int level) {  shopLevel = shopLevel + level; }
+    public static void SetShopLevel(int level) 
+    {  
+        shopLevel = shopLevel + level;
+
+        EventManager.OnShopLevelUp();
+    }
 
 
     //dictionary helper methods
