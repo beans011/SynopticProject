@@ -9,6 +9,7 @@ public class ShopShelf : ScriptableObject
     public string shelfName;
     public string shelfDescription;
     public int levelRequirement;
-    public GameObject shelf;
+    public GameObject shelfObj;
     public Material shelfImage;
+    public string axisRotation;
 }

@@ -12,17 +12,21 @@ public class PlayerInteraction : MonoBehaviour
 
     [Header("Object Interaction")]
     [SerializeField] private Transform holdPos;
+    [SerializeField] private Transform shelfHeldPos;
     [SerializeField] private float interactRange;
     private GameObject holdingObject;
+    private bool canPlace = false;
 
     [Header("Camera")]
     [SerializeField] private Transform cameraTransform;
 
     private int stateNo; //0 - nothingHeld, 1 - holdingItemBox, 2 - holdingShelfBox}
+    private int boxOpen; //0 - close, 1 - open
 
     private void Start()
     {
         stateNo = 0;
+        boxOpen = 0;
     }
 
     private void Update()
@@ -41,17 +45,6 @@ public class PlayerInteraction : MonoBehaviour
                 HoldingShelfBoxState();
                 break;
         }
-
-        if (Input.GetKeyDown(playerObjectDropKey) && holdingObject != null)
-        {
-            DropObject();
-        }
-
-        if (Input.GetKeyDown(playerObjectThrowKey) && holdingObject != null)
-        {
-            ThrowObject();
-        }
-        Debug.Log(stateNo);
     }
 
     private void NothingHeldState()
@@ -123,22 +116,82 @@ public class PlayerInteraction : MonoBehaviour
                 }              
             }
         }
+
+        if (Input.GetKeyDown(playerObjectDropKey) && holdingObject != null)
+        {
+            DropObject();
+        }
+
+        if (Input.GetKeyDown(playerObjectThrowKey) && holdingObject != null)
+        {
+            ThrowObject();
+        }
     }
 
     private void HoldingShelfBoxState()
     {
-        if (Input.GetKeyDown(playerObjectInteractKey))
-        {
-            
-        }
+        CardboardBoxShelf shelfBox = holdingObject.GetComponent<CardboardBoxShelf>();
 
-        if (Input.GetKeyDown(playerObjectInteractSecondaryKey)) //if statement to remove items from shelf and add it to the box if they can
+        switch (boxOpen)
         {
-            
-        }
+            case 0:
+                if (shelfBox.IsPreviewShelfMade() == true)
+                {
+                    shelfBox.DestroyPreviewShelf();
+                }
+
+                if (Input.GetKeyDown(playerObjectInteractKey) && holdingObject != null) //open tha box
+                {
+                    boxOpen = 1;
+                    holdingObject.SetActive(false);
+                }
+
+                if (Input.GetKeyDown(playerObjectDropKey) && holdingObject != null)
+                {
+                    DropObject();
+                }
+
+                if (Input.GetKeyDown(playerObjectThrowKey) && holdingObject != null)
+                {
+                    ThrowObject();
+                }
+                break; 
+
+            case 1:
+
+                if (shelfBox != null && shelfBox.IsPreviewShelfMade() == false)
+                {
+                    shelfBox.SpawnPreviewShelf(shelfBox.GetRotation());
+                }
+
+                shelfBox.HandlePreviewPosition(cameraTransform, interactRange, shelfHeldPos.transform.position);
+
+                if (Input.GetKeyDown(playerObjectInteractKey) && canPlace)
+                {
+                    shelfBox.PlaceShelf();
+                }
+
+                if (Input.GetKeyDown(playerObjectDropKey))
+                {
+                    shelfBox.RotateShelf(-45f);
+                }
+
+                if (Input.GetKeyDown(playerObjectThrowKey))
+                {
+                    shelfBox.RotateShelf(45f);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Mouse1)) //close tha box
+                {
+                    boxOpen = 0;
+                    holdingObject.SetActive(true);
+                }
+
+                break;
+        }               
     }
 
-
+    //old ass code
     private void PlayerInteractionStuff()
     {
         if (Input.GetKeyDown(playerObjectInteractKey))
@@ -233,5 +286,5 @@ public class PlayerInteraction : MonoBehaviour
         holdingObject.GetComponent<Rigidbody>().AddForce(transform.forward * 500f); //throw for the shits and giggles
         holdingObject = null;
         stateNo = 0;
-    }
+    }   
 }

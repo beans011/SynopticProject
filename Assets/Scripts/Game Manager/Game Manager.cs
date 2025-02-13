@@ -9,11 +9,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    //Timer stuff
+    [Header("Timer Stuff")]
     [SerializeField] private int startHour;
     [SerializeField] private int startMinute;
     [SerializeField] private int dayDuration; //IDK day is 10 min for now
-
     private float elapsedTime = 0f;
     private bool isCountingTime = false;
     private string timeDisplayText; 

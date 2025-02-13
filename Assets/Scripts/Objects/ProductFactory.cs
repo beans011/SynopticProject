@@ -74,7 +74,9 @@ public class ProductFactory : MonoBehaviour
 
         ShopShelf shopShelf = shelvesDict[itemID];
 
-        GameObject newBox = Instantiate(cardboardBox, deliveryLocation) as GameObject;
+        Debug.Log(shopShelf.shelfID + " " + shopShelf.shelfName);
+
+        GameObject newBox = Instantiate(cardboardBoxShelf, deliveryLocation) as GameObject;
         CardboardBoxShelf cardboardBoxScript = newBox.GetComponent<CardboardBoxShelf>();
         cardboardBoxScript.SetupBox(shopShelf);
     }
