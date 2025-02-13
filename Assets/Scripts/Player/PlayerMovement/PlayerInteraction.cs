@@ -18,10 +18,126 @@ public class PlayerInteraction : MonoBehaviour
     [Header("Camera")]
     [SerializeField] private Transform cameraTransform;
 
-    void Update()
+    private int stateNo; //0 - nothingHeld, 1 - holdingItemBox, 2 - holdingShelfBox}
+
+    private void Start()
     {
-        PlayerInteractionStuff();
+        stateNo = 0;
     }
+
+    private void Update()
+    {       
+        switch(stateNo)
+        {
+            case 0:
+                NothingHeldState();               
+                break;
+
+            case 1:
+                HoldingItemBoxState();
+                break; 
+            
+            case 2:
+                HoldingShelfBoxState();
+                break;
+        }
+
+        if (Input.GetKeyDown(playerObjectDropKey) && holdingObject != null)
+        {
+            DropObject();
+        }
+
+        if (Input.GetKeyDown(playerObjectThrowKey) && holdingObject != null)
+        {
+            ThrowObject();
+        }
+        Debug.Log(stateNo);
+    }
+
+    private void NothingHeldState()
+    {
+        if (Input.GetKeyDown(playerObjectInteractKey))
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
+            {
+                if (holdingObject == null) //picking up box
+                {
+                    if (hit.transform.gameObject.tag == "canPickUp")
+                    {
+                        PickUpObject(hit.transform.gameObject);
+                        
+                        if (holdingObject.TryGetComponent<CardboardBox>(out CardboardBox cardboardBox))
+                        {
+                            stateNo = 1;
+                        }
+                        else if (holdingObject.TryGetComponent<CardboardBoxShelf>(out CardboardBoxShelf cardboardBoxShelf))
+                        {
+                            stateNo = 2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void HoldingItemBoxState()
+    {
+        if (Input.GetKeyDown(playerObjectInteractKey))
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
+            {                
+                if (hit.transform.gameObject.tag == "shelfSign")
+                {
+                    //check if item can be added to the shelf
+                    if (hit.transform.gameObject.GetComponent<Shelf>().GetItem() == null || holdingObject.GetComponent<CardboardBox>().GetItem() == hit.transform.gameObject.GetComponent<Shelf>().GetItem())
+                    {
+                        hit.transform.gameObject.GetComponent<Shelf>().AddItemsToShelf(1, holdingObject.GetComponent<CardboardBox>().GetItem()); //validation in here to change to shelf status
+
+                        if (hit.transform.gameObject.GetComponent<Shelf>().GetShelfFullStatus() == false)
+                        {
+                            holdingObject.GetComponent<CardboardBox>().SubtractFromBox();
+                        }
+                    }
+                }                
+            }
+        }
+
+        if (Input.GetKeyDown(playerObjectInteractSecondaryKey)) //if statement to remove items from shelf and add it to the box if they can
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
+            {               
+                if (hit.transform.gameObject.tag == "shelfSign")
+                {
+                    //check if item can be added to box
+                    if (holdingObject.GetComponent<CardboardBox>().GetItem() == null || holdingObject.GetComponent<CardboardBox>().GetItem() == hit.transform.gameObject.GetComponent<Shelf>().GetItem())
+                    {
+                        holdingObject.GetComponent<CardboardBox>().AddToBox(hit.transform.gameObject.GetComponent<Shelf>().GetItem());
+                        hit.transform.gameObject.GetComponent<Shelf>().RemoveItemsFromShelf(1);
+                    }
+                }              
+            }
+        }
+    }
+
+    private void HoldingShelfBoxState()
+    {
+        if (Input.GetKeyDown(playerObjectInteractKey))
+        {
+            
+        }
+
+        if (Input.GetKeyDown(playerObjectInteractSecondaryKey)) //if statement to remove items from shelf and add it to the box if they can
+        {
+            
+        }
+    }
+
 
     private void PlayerInteractionStuff()
     {
@@ -106,6 +222,7 @@ public class PlayerInteraction : MonoBehaviour
         holdingObject.transform.parent = null;
         EventManager.OnDropObject();
         holdingObject = null;
+        stateNo = 0;
     }
 
     private void ThrowObject()
@@ -115,5 +232,6 @@ public class PlayerInteraction : MonoBehaviour
         EventManager.OnDropObject();
         holdingObject.GetComponent<Rigidbody>().AddForce(transform.forward * 500f); //throw for the shits and giggles
         holdingObject = null;
+        stateNo = 0;
     }
 }

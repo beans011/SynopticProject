@@ -32,6 +32,7 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<float> SET_MORALITY_METER;
     public static DebugCommand<int> SET_SHOP_XP;
     public static DebugCommand<int> SPAWN_ITEM;
+    public static DebugCommand<int> SPAWN_SHELF;
 
     public List<object> commandList;
 
@@ -98,9 +99,14 @@ public class DebugController : MonoBehaviour
             ShopStats.SetShopXP(x); 
         });
 
-        SPAWN_ITEM = new DebugCommand<int>("spawn_item", "Spawns box of items with given ID", "spawn_item <item _id>", (x) => 
+        SPAWN_ITEM = new DebugCommand<int>("spawn_item", "Spawns box of items with given ID", "spawn_item <item_id>", (x) => 
         { 
             ProductFactory.instance.SpawnBoxOfItems(x);
+        });
+
+        SPAWN_SHELF = new DebugCommand<int>("spawn_shelf", "Spawns box with a shelf of the given ID", "spawn_shelf <shelf_id>", (x) =>
+        {
+            ProductFactory.instance.SpawnBoxOfShelf(x);
         });
 
         commandList = new List<object>
@@ -116,7 +122,8 @@ public class DebugController : MonoBehaviour
             SET_BILLS_AMOUNT,
             SET_MORALITY_METER,
             SET_SHOP_XP,
-            SPAWN_ITEM
+            SPAWN_ITEM,
+            SPAWN_SHELF
         };
     }
 

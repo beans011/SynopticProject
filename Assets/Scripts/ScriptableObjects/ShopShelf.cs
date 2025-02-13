@@ -10,4 +10,5 @@ public class ShopShelf : ScriptableObject
     public string shelfDescription;
     public int levelRequirement;
     public GameObject shelf;
+    public Material shelfImage;
 }
