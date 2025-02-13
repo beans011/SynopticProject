@@ -124,8 +124,18 @@ public class CardboardBoxShelf : MonoBehaviour
 
         foreach (Renderer rend in renderers)
         {
-            Color color = isValid ? new Color(0, 1, 0, 0.5f) : new Color(1, 0, 0, 0.5f);
-            rend.material.color = color;
+            Color colour;
+
+            if (isValid == true)
+            {
+                colour = new Color(0, 1, 0, 0.5f);
+            }
+            else
+            {
+                colour = new Color(1, 0, 0, 0.5f);
+            }
+
+            rend.material.color = colour;
         }
     }
 
