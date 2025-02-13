@@ -68,13 +68,19 @@ public class CardboardBoxShelf : MonoBehaviour
         Vector3 holdPos = new Vector3(objectHoldPos.x,(meshCollider.bounds.size.y / 2) + 0.3f, objectHoldPos.z); //0.3f is the floor height
         previewShelf.transform.position = holdPos;
 
-        //work on being able to place it here \/ maybe try using raycast shit or colliders on a special layer
+        //update with other tags when needed
+        if (previewShelf.GetComponent<ShelfDetection>().CheckTags() == true)
+        {
+            canPlaceShelf = true;
+            SetPreviewMaterial(previewShelf, canPlaceShelf); //change colour if shelf can go there
+        }
+        else 
+        {
+            canPlaceShelf = false;
+            SetPreviewMaterial(previewShelf, canPlaceShelf);
+        }
 
-        previewShelf.SetActive(true);
-
-        canPlaceShelf = !Physics.CheckSphere(previewShelf.transform.position, 0.5f);
-        SetPreviewMaterial(previewShelf, canPlaceShelf); //change colour if shelf can go there
-        
+        previewShelf.SetActive(true);                        
     }
 
     public void PlaceShelf()
