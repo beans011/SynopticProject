@@ -11,14 +11,7 @@ public class ShelfDetection : MonoBehaviour
 
     void Start()
     {
-        
-
         boxCollider = GetComponent<BoxCollider>();
-    }
-
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter(Collider other)

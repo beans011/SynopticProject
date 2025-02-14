@@ -15,7 +15,6 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Transform shelfHeldPos;
     [SerializeField] private float interactRange;
     private GameObject holdingObject;
-    private bool canPlace = false;
 
     [Header("Camera")]
     [SerializeField] private Transform cameraTransform;
@@ -25,6 +24,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Start()
     {
+        EventManager.PlacedShelf += DestroyCurrentHeldBox;
         stateNo = 0;
         boxOpen = 0;
     }
@@ -55,21 +55,18 @@ public class PlayerInteraction : MonoBehaviour
 
             if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
             {
-                if (holdingObject == null) //picking up box
-                {
-                    if (hit.transform.gameObject.tag == "canPickUp")
-                    {
-                        PickUpObject(hit.transform.gameObject);
+                if (holdingObject == null && hit.transform.gameObject.tag == "canPickUp") //picking up box
+                {                    
+                    PickUpObject(hit.transform.gameObject);
                         
-                        if (holdingObject.TryGetComponent<CardboardBox>(out CardboardBox cardboardBox))
-                        {
-                            stateNo = 1;
-                        }
-                        else if (holdingObject.TryGetComponent<CardboardBoxShelf>(out CardboardBoxShelf cardboardBoxShelf))
-                        {
-                            stateNo = 2;
-                        }
+                    if (holdingObject.TryGetComponent<CardboardBox>(out CardboardBox cardboardBox))
+                    {
+                        stateNo = 1;
                     }
+                    else if (holdingObject.TryGetComponent<CardboardBoxShelf>(out CardboardBoxShelf cardboardBoxShelf))
+                    {
+                        stateNo = 2;
+                    }                    
                 }
             }
         }
@@ -166,12 +163,14 @@ public class PlayerInteraction : MonoBehaviour
 
                 shelfBox.HandlePreviewPosition(cameraTransform, interactRange, shelfHeldPos.transform.position);
 
-                if (Input.GetKeyDown(playerObjectInteractKey) && canPlace)
+                if (Input.GetKeyDown(playerObjectInteractKey))
                 {
                     shelfBox.PlaceShelf();
+                    boxOpen = 0;
+                    stateNo = 0;
                 }
 
-                if (Input.GetKeyDown(playerObjectDropKey))
+                if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     shelfBox.RotateShelf(-45f);
                 }
@@ -189,74 +188,6 @@ public class PlayerInteraction : MonoBehaviour
 
                 break;
         }               
-    }
-
-    //old ass code
-    private void PlayerInteractionStuff()
-    {
-        if (Input.GetKeyDown(playerObjectInteractKey))
-        {
-            RaycastHit hit;
-
-            if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
-            {
-                if (holdingObject == null) //picking up box
-                {
-                    if (hit.transform.gameObject.tag == "canPickUp")
-                    {
-                        PickUpObject(hit.transform.gameObject);
-                    }
-                }
-
-                if (holdingObject != null) //putting item onto shelf
-                {
-                    if (hit.transform.gameObject.tag == "shelfSign")
-                    {
-                        //check if item can be added to the shelf
-                        if (hit.transform.gameObject.GetComponent<Shelf>().GetItem() == null || holdingObject.GetComponent<CardboardBox>().GetItem() == hit.transform.gameObject.GetComponent<Shelf>().GetItem())
-                        {
-                            hit.transform.gameObject.GetComponent<Shelf>().AddItemsToShelf(1, holdingObject.GetComponent<CardboardBox>().GetItem()); //validation in here to change to shelf status
-
-                            if (hit.transform.gameObject.GetComponent<Shelf>().GetShelfFullStatus() == false)
-                            {
-                                holdingObject.GetComponent<CardboardBox>().SubtractFromBox();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        if (Input.GetKeyDown(playerObjectInteractSecondaryKey)) //if statement to remove items from shelf and add it to the box if they can
-        {
-            RaycastHit hit;
-
-            if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, interactRange))
-            {
-                if (holdingObject != null)
-                {
-                    if (hit.transform.gameObject.tag == "shelfSign")
-                    {
-                        //check if item can be added to box
-                        if (holdingObject.GetComponent<CardboardBox>().GetItem() == null || holdingObject.GetComponent<CardboardBox>().GetItem() == hit.transform.gameObject.GetComponent<Shelf>().GetItem())
-                        {
-                            holdingObject.GetComponent<CardboardBox>().AddToBox(hit.transform.gameObject.GetComponent<Shelf>().GetItem());
-                            hit.transform.gameObject.GetComponent<Shelf>().RemoveItemsFromShelf(1);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (Input.GetKeyDown(playerObjectDropKey) && holdingObject != null)
-        {
-            DropObject();
-        }
-
-        if (Input.GetKeyDown(playerObjectThrowKey) && holdingObject != null)
-        {
-            ThrowObject();
-        }
     }
 
     private void PickUpObject(GameObject objectToPickUp)
@@ -287,4 +218,9 @@ public class PlayerInteraction : MonoBehaviour
         holdingObject = null;
         stateNo = 0;
     }   
+
+    public void DestroyCurrentHeldBox()
+    {
+        Destroy(holdingObject);
+    }
 }

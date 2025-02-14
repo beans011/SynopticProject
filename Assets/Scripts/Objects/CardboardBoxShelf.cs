@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(ShelfDetection))]
 public class CardboardBoxShelf : MonoBehaviour
 {
     [SerializeField] private ShopShelf shelfInBox;
@@ -87,8 +88,9 @@ public class CardboardBoxShelf : MonoBehaviour
     {
         if (previewShelf != null && canPlaceShelf)
         {
-            Instantiate(previewShelf, previewShelf.transform.position, previewShelf.transform.rotation);
+            Instantiate(shelfInBox.shelfObj, previewShelf.transform.position, previewShelf.transform.rotation);
             Destroy(previewShelf);
+            EventManager.OnPlacedShelf();
         }
     }
 

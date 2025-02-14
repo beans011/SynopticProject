@@ -147,6 +147,7 @@ public class ShopStats
         {
             itemUnlocks[itemID].marketPrice = newMarketPrice;
             Debug.Log("Set new Item Price: " +  itemID + " = " + itemUnlocks[itemID].marketPrice);
+            EventManager.OnUpdatePriceDisplays();
         }
 
         else

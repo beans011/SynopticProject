@@ -20,10 +20,12 @@ public class Shelf : MonoBehaviour
     private List<GameObject> spawnedItems = new List<GameObject>(); //keep track of kack put into box for easiness
     private bool isShelfFull = false;
 
+    private bool npcCanInteract = true;
+
     private void Start()
     {
         boxCollider = GetComponent<BoxCollider>();
-
+        EventManager.UpdatePriceDisplays += UpdateInfo;
         UpdateInfo();
     }
 
@@ -66,26 +68,28 @@ public class Shelf : MonoBehaviour
 
     public void RemoveItemsFromShelf(int count)
     {
-        for (int i = 0; i < count; i++)
+        if (npcCanInteract)
         {
-
-            GameObject itemToRemove = spawnedItems[spawnedItems.Count - 1];
-            spawnedItems.RemoveAt(spawnedItems.Count - 1);
-            Destroy(itemToRemove);
-            isShelfFull = false;
-
-            if (spawnedItems.Count == 0) //check if no item left in the shelf
+            for (int i = 0; i < count; i++)
             {
-                Debug.LogWarning("ALL ITEMS GONE");
+                GameObject itemToRemove = spawnedItems[spawnedItems.Count - 1];
+                spawnedItems.RemoveAt(spawnedItems.Count - 1);
+                Destroy(itemToRemove);
+                isShelfFull = false;
 
-                itemOnShelf = null;
-                UpdateInfo();
+                if (spawnedItems.Count == 0) //check if no item left in the shelf
+                {
+                    Debug.LogWarning("ALL ITEMS GONE");
 
-                break;
+                    itemOnShelf = null;
+                    UpdateInfo();
+
+                    break;
+                }
             }
-        }
 
-        UpdateInfo();
+            UpdateInfo();
+        }       
     }
 
     private void UpdateInfo()
@@ -111,6 +115,22 @@ public class Shelf : MonoBehaviour
     {
         return isShelfFull;
     }
+
+    public bool IsThereItemOnShelf()
+    {
+        if (spawnedItems.Count > 0) 
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void SetNPCCanInteract(bool newAns)
+    {
+        npcCanInteract = newAns;
+    }
+    public bool GetNPCCanInteract() { return npcCanInteract; }
 
     private Vector3 CalculateNextPosition(int index) //IT FINALLY WORKS thank god
     {

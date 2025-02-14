@@ -38,6 +38,7 @@ public class EventManager : MonoBehaviour
     public static event Action CloseCheatConsole;
 
     public static event Action UpdateTimeDisplay;
+    public static event Action UpdatePriceDisplays;
 
     public static void OnGamePause()
     {
@@ -73,6 +74,10 @@ public class EventManager : MonoBehaviour
     { 
         UpdateTimeDisplay?.Invoke();
     }
+    public static void OnUpdatePriceDisplays()
+    {
+        UpdatePriceDisplays?.Invoke();
+    }
     #endregion
 
     #region ObjectInteractionEvents
@@ -80,6 +85,7 @@ public class EventManager : MonoBehaviour
     public static event Action DropObject;
     public static event Action CardboardBoxInteract;
     public static event Action CardboardBoxInteractSecondary;
+    public static event Action PlacedShelf;
 
     public static void OnPickUpObject()
     {
@@ -93,10 +99,13 @@ public class EventManager : MonoBehaviour
     {
         CardboardBoxInteract?.Invoke();
     }
-
     public static void OnCardboardBoxInteractSecondary()
     {
         CardboardBoxInteractSecondary?.Invoke();
+    }
+    public static void OnPlacedShelf()
+    {
+        PlacedShelf?.Invoke();
     }
     #endregion
 }

@@ -80,5 +80,35 @@ public class ProductFactory : MonoBehaviour
         CardboardBoxShelf cardboardBoxScript = newBox.GetComponent<CardboardBoxShelf>();
         cardboardBoxScript.SetupBox(shopShelf);
     }
+
+    public void SpawnBoxOfShelf(int itemID, Transform spawnLocation)
+    {
+        if (!shelvesDict.ContainsKey(itemID))
+        {
+            Debug.LogError($"NO CANNY FIND {itemID}");
+            return;
+        }
+
+        ShopShelf shopShelf = shelvesDict[itemID];
+
+        Debug.Log(shopShelf.shelfID + " " + shopShelf.shelfName);
+
+        GameObject newBox = Instantiate(cardboardBoxShelf, spawnLocation) as GameObject;
+        CardboardBoxShelf cardboardBoxScript = newBox.GetComponent<CardboardBoxShelf>();
+        cardboardBoxScript.SetupBox(shopShelf);
+    }
+
+    public ShopShelf GetShelf(int shelfID)
+    {
+        if (shelvesDict.ContainsKey(shelfID))
+        {
+            return shelvesDict[shelfID];
+        }
+
+        else
+        {
+            return null;
+        }
+    }
 }
 
