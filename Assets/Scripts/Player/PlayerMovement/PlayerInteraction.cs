@@ -21,30 +21,38 @@ public class PlayerInteraction : MonoBehaviour
 
     private int stateNo; //0 - nothingHeld, 1 - holdingItemBox, 2 - holdingShelfBox}
     private int boxOpen; //0 - close, 1 - open
+    private bool inMenu = false;
 
     private void Start()
     {
         EventManager.PlacedShelf += DestroyCurrentHeldBox;
+        EventManager.OpenTabMenu += SetInMenuTrue;
+        EventManager.CloseTabMenu += SetInMenuFalse;
+        EventManager.OpenCheatConsole += SetInMenuTrue;
+        EventManager.CloseCheatConsole += SetInMenuFalse;
         stateNo = 0;
         boxOpen = 0;
     }
 
     private void Update()
     {       
-        switch(stateNo)
+        if (inMenu == false)
         {
-            case 0:
-                NothingHeldState();               
-                break;
+            switch (stateNo)
+            {
+                case 0:
+                    NothingHeldState();
+                    break;
 
-            case 1:
-                HoldingItemBoxState();
-                break; 
-            
-            case 2:
-                HoldingShelfBoxState();
-                break;
-        }
+                case 1:
+                    HoldingItemBoxState();
+                    break;
+
+                case 2:
+                    HoldingShelfBoxState();
+                    break;
+            }
+        }        
     }
 
     private void NothingHeldState()
@@ -222,5 +230,15 @@ public class PlayerInteraction : MonoBehaviour
     public void DestroyCurrentHeldBox()
     {
         Destroy(holdingObject);
+    }
+
+    public void SetInMenuFalse()
+    {
+        inMenu = false;
+    }
+
+    public void SetInMenuTrue() 
+    {
+        inMenu = true; 
     }
 }
