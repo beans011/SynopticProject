@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ShelfDetection : MonoBehaviour
 {
-    private BoxCollider boxCollider;
+    [SerializeField] private BoxCollider boxCollider;
     private List<string> tagsHit = new List<string>();
     private List<string> badTags = new List<string>();
     private string goodTag = "shop";
-
-    void Start()
-    {
-        boxCollider = GetComponent<BoxCollider>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,7 +18,7 @@ public class ShelfDetection : MonoBehaviour
              
         for (int i = 0; i < tagsHit.Count; i++) 
         {
-            Debug.Log(tagsHit[i]);
+            //Debug.Log(tagsHit[i]);
         }
     }
 
@@ -39,12 +34,17 @@ public class ShelfDetection : MonoBehaviour
 
         for (int i = 0; i < tagsHit.Count; i++)
         {
-            Debug.Log(tagsHit[i]);
+            //Debug.Log(tagsHit[i]);
         }
     }
 
     public bool CheckTags()
     {
+        for (int i = 0; i < tagsHit.Count; i++)
+        {
+            //Debug.Log(tagsHit[i]);
+        }
+
         if (tagsHit.Contains(goodTag))
         {
             if (tagsHit.Contains("wall") == true || tagsHit.Contains("shelf") == true)

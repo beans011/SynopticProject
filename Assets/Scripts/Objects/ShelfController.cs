@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShelfController : MonoBehaviour
 {
     [SerializeField] private int selfID;
+    [SerializeField] private GameObject shelfCollider;
     private ShopShelf shelf;
     private List<Shelf> shelves = new List<Shelf>();
     private bool npcCanInteract = true;
@@ -79,5 +80,12 @@ public class ShelfController : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void SetColliderActive()
+    {
+        shelfCollider.SetActive(true);
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        Destroy(rb);          
     }
 }

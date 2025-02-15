@@ -68,11 +68,13 @@
     <Compile Include="Assets\Scripts\Objects\CardboardBox.cs" />
     <Compile Include="Assets\Scripts\Objects\ShelfDetection.cs" />
     <Compile Include="Assets\Scripts\Game Manager\UI Controller.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerInteraction\HoldingItemBoxState.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement\OLD\PlayerInput.cs" />
     <Compile Include="Assets\Packages\Custom UI Features\CustomView.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUpgradesUI\UpgradesDisplay\UpgradeDisplayView.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerInteraction.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\ShopShelf.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerInteraction\NothingHeldState.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerCamera.cs" />
     <Compile Include="Assets\Scripts\Game Manager\Event Manager.cs" />
     <Compile Include="Assets\Packages\Tween Manager\Tween.cs" />
@@ -95,11 +97,13 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\Item.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUpgradesUI\ItemDisplayUI\BuyProductInfoDisplay.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUpgradesUI\UpgradesDisplay\UpgradeDisplayController.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerInteraction\HoldingShelfBoxState.cs" />
     <Compile Include="Assets\Packages\Custom UI Features\Style.cs" />
     <Compile Include="Assets\Packages\Custom UI Features\CustomViewSO.cs" />
     <Compile Include="Assets\Scripts\Game Manager\Settings.cs" />
     <Compile Include="Assets\Scripts\Shop\ShopStats.cs" />
     <Compile Include="Assets\Scripts\Shop\ObjectTags.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerInteraction\IInteractionState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

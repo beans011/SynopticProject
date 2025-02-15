@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(ShelfDetection))]
 public class CardboardBoxShelf : MonoBehaviour
 {
     [SerializeField] private ShopShelf shelfInBox;
@@ -47,7 +46,7 @@ public class CardboardBoxShelf : MonoBehaviour
         if (shelfInBox != null)
         {            
             previewShelf = Instantiate(shelfInBox.shelfObj);
-            previewShelf.GetComponent<Collider>().enabled = false;
+            //previewShelf.GetComponent<Collider>().enabled = false;
             previewShelf.transform.rotation = shelfInBox.shelfObj.transform.rotation;
             SetPreviewMaterial(previewShelf, true);
         }
@@ -67,11 +66,11 @@ public class CardboardBoxShelf : MonoBehaviour
         
         MeshRenderer meshCollider = previewShelf.GetComponent<MeshRenderer>();      
         Vector3 holdPos = new Vector3(objectHoldPos.x,(meshCollider.bounds.size.y / 2) + 0.3f, objectHoldPos.z); //0.3f is the floor height
+
         previewShelf.transform.position = holdPos;
 
-        //update with other tags when needed
         if (previewShelf.GetComponent<ShelfDetection>().CheckTags() == true)
-        {
+        {   
             canPlaceShelf = true;
             SetPreviewMaterial(previewShelf, canPlaceShelf); //change colour if shelf can go there
         }
@@ -88,7 +87,10 @@ public class CardboardBoxShelf : MonoBehaviour
     {
         if (previewShelf != null && canPlaceShelf)
         {
-            Instantiate(shelfInBox.shelfObj, previewShelf.transform.position, previewShelf.transform.rotation);
+            GameObject newShelf = Instantiate(shelfInBox.shelfObj, previewShelf.transform.position, previewShelf.transform.rotation);
+            ShelfController shelfController = newShelf.GetComponent<ShelfController>();
+            shelfController.SetColliderActive();
+
             Destroy(previewShelf);
             EventManager.OnPlacedShelf();
         }
@@ -157,5 +159,10 @@ public class CardboardBoxShelf : MonoBehaviour
     public Quaternion GetRotation()
     {
         return shelfRotation;
+    }
+
+    public bool GetCanPlaceShelf()
+    {
+        return canPlaceShelf;
     }
 }

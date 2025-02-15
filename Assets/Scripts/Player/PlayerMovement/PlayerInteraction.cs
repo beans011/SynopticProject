@@ -5,22 +5,21 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     [Header("Object Interact Keybinds")]
-    [SerializeField] private KeyCode playerObjectInteractKey;
-    [SerializeField] private KeyCode playerObjectInteractSecondaryKey;
-    [SerializeField] private KeyCode playerObjectDropKey;
-    [SerializeField] private KeyCode playerObjectThrowKey;
+    [SerializeField] public KeyCode playerObjectInteractKey;
+    [SerializeField] public KeyCode playerObjectInteractSecondaryKey;
+    [SerializeField] public KeyCode playerObjectDropKey;
+    [SerializeField] public KeyCode playerObjectThrowKey;
 
     [Header("Object Interaction")]
-    [SerializeField] private Transform holdPos;
-    [SerializeField] private Transform shelfHeldPos;
-    [SerializeField] private float interactRange;
-    private GameObject holdingObject;
+    [SerializeField] public Transform holdPos;
+    [SerializeField] public Transform shelfHeldPos;
+    [SerializeField] public float interactRange;
+    [HideInInspector] public GameObject holdingObject { get; private set;}
 
     [Header("Camera")]
-    [SerializeField] private Transform cameraTransform;
+    [SerializeField] public Transform cameraTransform;
 
-    private int stateNo; //0 - nothingHeld, 1 - holdingItemBox, 2 - holdingShelfBox}
-    private int boxOpen; //0 - close, 1 - open
+    private IInteractionState currentState;
     private bool inMenu = false;
 
     private void Start()
@@ -30,31 +29,25 @@ public class PlayerInteraction : MonoBehaviour
         EventManager.CloseTabMenu += SetInMenuFalse;
         EventManager.OpenCheatConsole += SetInMenuTrue;
         EventManager.CloseCheatConsole += SetInMenuFalse;
-        stateNo = 0;
-        boxOpen = 0;
+        
+        currentState = new NothingHeldState();
     }
 
     private void Update()
-    {       
-        if (inMenu == false)
+    {
+        if (!inMenu)
         {
-            switch (stateNo)
-            {
-                case 0:
-                    NothingHeldState();
-                    break;
-
-                case 1:
-                    HoldingItemBoxState();
-                    break;
-
-                case 2:
-                    HoldingShelfBoxState();
-                    break;
-            }
-        }        
+            currentState.HandleInput(this);
+        }
     }
 
+    public void SetState(IInteractionState newState)
+    {
+        Debug.Log($"Switched to state: {newState.GetType().Name}");
+        currentState = newState;
+    }
+
+    /*
     private void NothingHeldState()
     {
         if (Input.GetKeyDown(playerObjectInteractKey))
@@ -197,8 +190,8 @@ public class PlayerInteraction : MonoBehaviour
                 break;
         }               
     }
-
-    private void PickUpObject(GameObject objectToPickUp)
+    */
+    public void PickUpObject(GameObject objectToPickUp)
     {
         holdingObject = objectToPickUp; //assigns the picked up object to holding object so it can be easily interacted with 
         holdingObject.transform.parent = holdPos; //sets parent
@@ -208,23 +201,23 @@ public class PlayerInteraction : MonoBehaviour
         EventManager.OnPickUpObject(); //call to do some other stuff like ui shit
     }
 
-    private void DropObject()
+    public void DropObject()
     {
         holdingObject.GetComponent<Rigidbody>().isKinematic = false;
         holdingObject.transform.parent = null;
         EventManager.OnDropObject();
         holdingObject = null;
-        stateNo = 0;
+        SetState(new NothingHeldState());
     }
 
-    private void ThrowObject()
+    public void ThrowObject()
     {
         holdingObject.GetComponent<Rigidbody>().isKinematic = false;
         holdingObject.transform.parent = null;
         EventManager.OnDropObject();
         holdingObject.GetComponent<Rigidbody>().AddForce(transform.forward * 500f); //throw for the shits and giggles
         holdingObject = null;
-        stateNo = 0;
+        SetState(new NothingHeldState());
     }   
 
     public void DestroyCurrentHeldBox()
