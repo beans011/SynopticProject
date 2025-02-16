@@ -166,9 +166,15 @@ public class Shelf : MonoBehaviour
         return localPosition;
     }
 
-    private void OnDrawGizmos()
+    public void GiveInfoToUIController()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, shelfSize);
+        GameObject parentShelf = gameObject.transform.root.gameObject;
+        UIController.instance.ConfigureShelfControlUI(itemOnShelf, parentShelf);
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireCube(transform.position, shelfSize);
+    //}
 }

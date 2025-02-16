@@ -14,6 +14,9 @@ public class UIController : MonoBehaviour
 
     private List<GameObject> uiElements = new List<GameObject>();
 
+    [Header("Clipboard Stuff")]
+    [SerializeField] private GameObject clipBoardMenu;
+
     #region Singelton stuff
     public static UIController instance;
 
@@ -42,6 +45,7 @@ public class UIController : MonoBehaviour
     {
         uiElements.Add(nileWebsite);
         uiElements.Add(phoneMenu);
+        uiElements.Add(clipBoardMenu);
     }
 
     private void ResetCanvas()
@@ -62,5 +66,10 @@ public class UIController : MonoBehaviour
     {
         ResetCanvas();
         phoneMenu.SetActive(true);
+    }
+
+    public void ConfigureShelfControlUI(Item itemOnShelf, GameObject shelf)
+    {
+        clipBoardMenu.SetActive(true);
     }
 }
