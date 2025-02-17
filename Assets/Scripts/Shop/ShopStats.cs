@@ -55,6 +55,7 @@ public class ShopStats
         if (!itemUnlocks.ContainsKey(item.productID))
         {
             itemUnlocks.Add(item.productID, item);
+            itemUnlocks[item.productID].playerSetPrice = itemUnlocks[item.productID].marketPrice;
             Debug.Log($"Added: {item.productID} with name {item.productName}");
         }
 

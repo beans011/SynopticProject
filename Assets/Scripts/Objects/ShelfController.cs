@@ -26,7 +26,7 @@ public class ShelfController : MonoBehaviour
         }        
     }
 
-    public void OpenShelfControlUI()
+    public void OpenShelfControlUI() //call function when ui bit opens
     {
         npcCanInteract = false;
         
@@ -34,8 +34,6 @@ public class ShelfController : MonoBehaviour
         {
             shelves[i].SetNPCCanInteract(npcCanInteract);
         }
-
-        //CALL A FUNCTION HERE OPEN UI SECTION
     }
 
     public void CloseShelfControlUI() //call this in the close function for the ui bit
@@ -52,11 +50,13 @@ public class ShelfController : MonoBehaviour
     {
         if (CheckForItemOnShelf() == false)
         {
-            ProductFactory.instance.SpawnBoxOfShelf(shelf.shelfID, gameObject.transform);
+            ProductFactory.instance.SpawnBoxOfShelf(shelf.shelfID);
             Destroy(gameObject);
         }
         else
         {
+            Debug.Log("stupid there is an item on the shelf");
+
             //LOGIC HERE TO DISPLAY AN ERROR MESSAGE OR SOMETHING WHEN THEY AND DESTROY SHELF
             //have some sort of function to call in here that passes data from here to the controller and acts as a constructor 
             //take in this object for easiness on connecting to it

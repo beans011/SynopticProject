@@ -16255,7 +16255,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 748934355}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 953283129}
+        m_TargetAssemblyTypeName: ClipBoard_controller, Assembly-CSharp
+        m_MethodName: CloseClipBoardUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &748934355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20046,6 +20058,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 953283128}
+  - component: {fileID: 953283130}
+  - component: {fileID: 953283129}
   m_Layer: 5
   m_Name: ClipBoardMenu_UI
   m_TagString: Untagged
@@ -20073,6 +20087,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &953283129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953283127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a272808182417cc479e87c5469819f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSetPrice_textInput: {fileID: 1321889118}
+--- !u!114 &953283130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953283127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e89edb94c2242a40a074b03f9d7f8e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avgPrice_text: {fileID: 1778261042}
+  marketPrice_text: {fileID: 1030865203}
+  profit_text: {fileID: 1624186753}
+  pricePlaceholder_text: {fileID: 1574212969}
+  itemDisplayImage: {fileID: 1227605069}
 --- !u!43 &960556085
 Mesh:
   m_ObjectHideFlags: 0
@@ -26194,7 +26238,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 75132bb3abbeeb7459da6347051cad0e, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -42161,7 +42205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1959731231}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 953283129}
+        m_TargetAssemblyTypeName: ClipBoard_controller, Assembly-CSharp
+        m_MethodName: FlatPackButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1959731231
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -144,7 +144,7 @@ public class DebugController : MonoBehaviour
         {
             currentFps = 1f / Time.unscaledDeltaTime;
 
-            // Apply exponential smoothing to calculate the weighted average
+            //aply exponential smoothing to calculate the weighted average
             smoothedFps = (smoothingFactor * currentFps) + (1f - smoothingFactor) * smoothedFps;
 
             yield return new WaitForSeconds(0.1f);
@@ -165,7 +165,14 @@ public class DebugController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.BackQuote))
         {
-            showConsole = !showConsole;
+            if (showConsole == false)
+            {
+                showConsole = true;
+            }
+            else if (showConsole == true)
+            {
+                showConsole = false;
+            }
 
             if (showConsole == true)
             {
@@ -288,7 +295,14 @@ public class DebugController : MonoBehaviour
         //basic show and close of ultimate hacker tool
         if (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.BackQuote))
         {
-            showConsole = !showConsole;
+            if (showConsole ==  false) 
+            { 
+                showConsole = true;
+            }
+            else if (showConsole == true) 
+            { 
+                showConsole = false;
+            }
 
             if (showConsole == true)
             {
