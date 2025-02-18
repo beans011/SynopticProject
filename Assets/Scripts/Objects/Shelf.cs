@@ -168,14 +168,15 @@ public class Shelf : MonoBehaviour
 
     public void GiveInfoToUIController()
     {
+        GameObject parentShelf = gameObject.transform.root.gameObject;
+
         if (itemOnShelf != null) 
         {
-            GameObject parentShelf = gameObject.transform.root.gameObject;
             UIController.instance.ConfigureShelfControlUI(itemOnShelf, parentShelf);
         }
-        else
+        else 
         {
-            //error message logic here
+            UIController.instance.ConfigureShelfControlUI(parentShelf);
         }
     }
 

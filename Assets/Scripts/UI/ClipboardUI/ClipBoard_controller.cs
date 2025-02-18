@@ -19,10 +19,21 @@ public class ClipBoard_controller : MonoBehaviour
     }
 
     public void SetUpClipboardUI(Item item, GameObject shelf)
-    {        
+    {
         EventManager.OnOpenCheatConsole();
 
         itemOnShelf = item;
+        shelfSelected = shelf;
+
+        shelfSelected.GetComponent<ShelfController>().OpenShelfControlUI();
+        Invoke("UpdateClipboardUI", 0.01f); //this is only shitty fix cause it was updating on the same tick so it would activate cause the shelf is stupid
+    }
+
+    public void SetUpClipboardUI(GameObject shelf)
+    {
+        EventManager.OnOpenCheatConsole();
+
+        itemOnShelf = null;
         shelfSelected = shelf;
 
         shelfSelected.GetComponent<ShelfController>().OpenShelfControlUI();

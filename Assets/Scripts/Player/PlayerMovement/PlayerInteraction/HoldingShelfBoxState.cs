@@ -21,6 +21,7 @@ public class HoldingShelfBoxState : IInteractionState
             {
                 boxOpen = 1;
                 playerInteraction.holdingObject.SetActive(false);
+                EventManager.OnHoldingShelfBoxOpenStateUI();
             }
 
             if (Input.GetKeyDown(playerInteraction.playerObjectDropKey))
@@ -63,6 +64,7 @@ public class HoldingShelfBoxState : IInteractionState
             {
                 boxOpen = 0;
                 playerInteraction.holdingObject.SetActive(true);
+                EventManager.OnHoldingShelfBoxClosedStateUI();
             }
         }
     }

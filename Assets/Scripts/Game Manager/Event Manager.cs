@@ -26,50 +26,43 @@ public class EventManager : MonoBehaviour
 
     #region UIEvents
     public static event Action GamePause;
-
     public static event Action GameResume;
-
     public static event Action OpenTabMenu;
-
     public static event Action CloseTabMenu;
-
     public static event Action OpenCheatConsole;
-
     public static event Action CloseCheatConsole;
-
     public static event Action UpdateTimeDisplay;
     public static event Action UpdatePriceDisplays;
+    public static event Action NothingHeldStateUI;
+    public static event Action HoldingItemBoxStateUI;
+    public static event Action HoldingShelfBoxOpenStateUI;
+    public static event Action HoldingShelfBoxClosedStateUI;
+    public static event Action DiableKeyBindUI;
 
     public static void OnGamePause()
     {
         GamePause?.Invoke();
     }
-
     public static void OnGameResume()
     {
         GameResume?.Invoke();
     }
-
     public static void OnOpenTabMenu()
     {
         OpenTabMenu?.Invoke();
     }
-
     public static void OnCloseTabMenu() 
     {
         CloseTabMenu?.Invoke();
     }
-
     public static void OnOpenCheatConsole()
     {
         OpenCheatConsole?.Invoke();
     }
-
     public static void OnCloseCheatConsole() 
     { 
         CloseCheatConsole?.Invoke();
     }
-
     public static void OnUpdateTimeDisplay()
     { 
         UpdateTimeDisplay?.Invoke();
@@ -77,6 +70,26 @@ public class EventManager : MonoBehaviour
     public static void OnUpdatePriceDisplays()
     {
         UpdatePriceDisplays?.Invoke();
+    }
+    public static void OnNothingHeldStateUI()
+    {
+        NothingHeldStateUI?.Invoke();
+    }
+    public static void OnHoldingItemBoxStateUI()
+    {
+        HoldingItemBoxStateUI?.Invoke();
+    }
+    public static void OnHoldingShelfBoxOpenStateUI()
+    {
+        HoldingShelfBoxOpenStateUI?.Invoke();
+    }
+    public static void OnHoldingShelfBoxClosedStateUI()
+    {
+        HoldingShelfBoxClosedStateUI?.Invoke();
+    }
+    public static void OnDisableKeyBindUI()
+    {
+        DiableKeyBindUI?.Invoke();
     }
     #endregion
 

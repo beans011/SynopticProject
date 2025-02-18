@@ -75,6 +75,13 @@ public class UIController : MonoBehaviour
         clipBoardMenu.GetComponent<ClipBoard_controller>().SetUpClipboardUI(itemOnShelf, shelf);
     }
 
+    public void ConfigureShelfControlUI(GameObject shelf)
+    {
+        clipBoardMenu.SetActive(true);
+        Debug.Log(shelf.name);
+        clipBoardMenu.GetComponent<ClipBoard_controller>().SetUpClipboardUI(shelf);
+    }
+
     public bool IsClipboardActive()
     {
         return clipBoardMenu.activeSelf;

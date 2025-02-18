@@ -29,8 +29,8 @@ public class PlayerInteraction : MonoBehaviour
         EventManager.CloseTabMenu += SetInMenuFalse;
         EventManager.OpenCheatConsole += SetInMenuTrue;
         EventManager.CloseCheatConsole += SetInMenuFalse;
-        
-        currentState = new NothingHeldState();
+
+        SetState(new NothingHeldState());
     }
 
     private void Update()
@@ -43,8 +43,21 @@ public class PlayerInteraction : MonoBehaviour
 
     public void SetState(IInteractionState newState)
     {
-        Debug.Log($"Switched to state: {newState.GetType().Name}");
+        //Debug.Log($"Switched to state: {newState.GetType().Name}");
         currentState = newState;
+
+        if (newState.ToString() == "NothingHeldState")
+        {
+            EventManager.OnNothingHeldStateUI();
+        }
+        else if (newState.ToString() == "HoldingShelfBoxState")
+        {
+            EventManager.OnHoldingShelfBoxClosedStateUI();
+        }
+        else if (newState.ToString() == "HoldingItemBoxState")
+        {
+            EventManager.OnHoldingItemBoxStateUI();
+        }
     }
 
     /*
