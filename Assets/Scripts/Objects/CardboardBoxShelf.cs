@@ -94,6 +94,10 @@ public class CardboardBoxShelf : MonoBehaviour
             Destroy(previewShelf);
             EventManager.OnPlacedShelf();
         }
+        else 
+        {
+            UIController.instance.DisplayErrorMessage("Cant place shelf");
+        }
     }
 
     public void RotateShelf(float angle)

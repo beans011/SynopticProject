@@ -36,7 +36,8 @@ public class CardboardBox : MonoBehaviour
 
             if (currentStackSize > maxStackSize)
             {
-                Debug.LogWarning("CANT GO ABOVE THE MAX STACK");
+                //Debug.LogWarning("CANT GO ABOVE THE MAX STACK");
+                UIController.instance.DisplayErrorMessage("Box is full");
                 currentStackSize = maxStackSize;
             }
         }

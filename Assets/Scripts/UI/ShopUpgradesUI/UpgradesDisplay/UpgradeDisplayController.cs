@@ -34,10 +34,15 @@ public class UpgradeDisplayController : MonoBehaviour
 
     public void BuySpace()
     {
-        if (model.GetIsBought() == false) 
+        if (model.GetIsBought() == false && ShopStats.GetMoney() >= model.GetSpaceCost()) 
         { 
             ShopStats.RemoveMoney(model.GetSpaceCost());
+            model.SetIsBought(true);
             model.ObjectObliteration();
+        }
+        else
+        {
+            UIController.instance.DisplayErrorMessage("Not enough money to buy");
         }
     }
 

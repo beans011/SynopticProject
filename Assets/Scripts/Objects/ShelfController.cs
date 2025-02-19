@@ -56,6 +56,7 @@ public class ShelfController : MonoBehaviour
         else
         {
             Debug.Log("stupid there is an item on the shelf");
+            UIController.instance.DisplayErrorMessage("Cant remove shelf because there are items on shelf");
 
             //LOGIC HERE TO DISPLAY AN ERROR MESSAGE OR SOMETHING WHEN THEY AND DESTROY SHELF
             //have some sort of function to call in here that passes data from here to the controller and acts as a constructor 

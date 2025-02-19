@@ -47,6 +47,7 @@ public class Shelf : MonoBehaviour
             if (item != itemOnShelf) //checks if the item being added is the same
             {
                 Debug.LogWarning("NOT THE SAME ITEM");
+                UIController.instance.DisplayErrorMessage("Not the same item on the shelf");
                 break;
             }
 
@@ -55,6 +56,7 @@ public class Shelf : MonoBehaviour
             if (position == Vector3.zero)
             {
                 Debug.LogWarning("NO ROOM BOZO");
+                UIController.instance.DisplayErrorMessage("No room on shelf");
                 isShelfFull = true;
                 break;
             }

@@ -57,6 +57,7 @@ public class BuyProductInfoDisplay : MonoBehaviour
         {
             //do thing here like play a sound or a little popup saying cant buy item
             Debug.Log("NOOOOOOO U CANT BUY IT: LICENSE IS TOO MUCH");
+            UIController.instance.DisplayErrorMessage("Not enough money to buy");
         }
     }
 

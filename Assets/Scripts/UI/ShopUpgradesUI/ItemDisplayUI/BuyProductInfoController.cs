@@ -38,6 +38,7 @@ public class BuyProductInfoController : MonoBehaviour
         else
         {
             Debug.Log("NOOOOOO U CANT DO THAT U NO MONEY OR NOT ENOUGH LEVEL GUESS");
+            UIController.instance.DisplayErrorMessage("Not enough money to buy");
         }
     }
 
@@ -52,6 +53,7 @@ public class BuyProductInfoController : MonoBehaviour
         else 
         {
             Debug.Log("u broke");
+            UIController.instance.DisplayErrorMessage("Not enough money to buy");
         }
     }
 

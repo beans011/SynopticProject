@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using static UnityEditor.Progress;
+using UnityEngine.Pool;
 
 public class UIController : MonoBehaviour
 {
     //PURPOSE OF UI CONTROLLER:
-    //singlwton that only controlls large scale ui events like changing canvas and large scale objects like main menu
+    //singlwton that only controls large scale ui events like changing canvas and large scale objects like main menu
     //all small like changing time displays will be done through events attached to the object it changes
     [Header("UI Elements")]
     [SerializeField] private GameObject nileWebsite;
@@ -16,6 +17,11 @@ public class UIController : MonoBehaviour
 
     [Header("Clipboard Stuff")]
     [SerializeField] private GameObject clipBoardMenu;
+
+    [Header("Error message")]
+    [SerializeField] private GameObject errorMsgObj;
+    private Queue<string> errorMessageQueue = new Queue<string>();
+    private bool isDisplaying = false;
 
     #region Singelton stuff
     public static UIController instance;
@@ -41,6 +47,7 @@ public class UIController : MonoBehaviour
         ResetCanvas();
     }
 
+    #region Phone and Website Stuff
     private void ConfigureList() //add new kack to the list when new ones are made
     {
         uiElements.Add(nileWebsite);
@@ -67,7 +74,9 @@ public class UIController : MonoBehaviour
         ResetCanvas();
         phoneMenu.SetActive(true);
     }
+    #endregion
 
+    #region Clipboard Stuff
     public void ConfigureShelfControlUI(Item itemOnShelf, GameObject shelf)
     {
         clipBoardMenu.SetActive(true);
@@ -86,4 +95,38 @@ public class UIController : MonoBehaviour
     {
         return clipBoardMenu.activeSelf;
     }
+    #endregion
+
+    #region User Error Message Stuff
+    public void DisplayErrorMessage(string message)
+    {
+        errorMessageQueue.Enqueue(message);
+
+        if (!isDisplaying)
+        {
+            StartCoroutine(ProcessQueue());
+        }
+    }
+
+    IEnumerator ProcessQueue()
+    {
+        if (errorMessageQueue.Count == 0)
+        {
+            isDisplaying = false;
+            yield break;
+        }
+
+        isDisplaying = true;
+        errorMsgObj.SetActive(true);
+        errorMsgObj.GetComponent<TextMeshProUGUI>().text = errorMessageQueue.Dequeue();
+
+        yield return new WaitForSeconds(2);
+
+        errorMsgObj.SetActive(false);
+
+        yield return new WaitForSeconds(0.2f);
+
+        StartCoroutine(ProcessQueue()); //recursion cause its cool
+    }
+    #endregion
 }

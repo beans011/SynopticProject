@@ -110,8 +110,8 @@ public class ClipBoard_controller : MonoBehaviour
         }
         else
         {
-            //logic for error message stuff here
-            Debug.LogError("cant set the price bossman");
+            //Debug.LogError("cant set the price bossman");
+            UIController.instance.DisplayErrorMessage("Please input a correct value.");
 
             shelfSelected.GetComponent<ShelfController>().CloseShelfControlUI();
             shelfSelected = null;
