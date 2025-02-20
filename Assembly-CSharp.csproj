@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Packages\Custom UI Features\CustomText.cs" />
     <Compile Include="Assets\Scripts\Debug\DebugCommand.cs" />
+    <Compile Include="Assets\Assets\PSXShaderKit\Scripts\PSXShaderManager.cs" />
     <Compile Include="Assets\Packages\Tween Manager\TweenManager.cs" />
     <Compile Include="Assets\Scripts\Objects\CardboardBoxShelf.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerMovement.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Scripts\UI\ClipboardUI\ClipBoard_controller.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUpgradesUI\ShopWindowControl.cs" />
     <Compile Include="Assets\Packages\Tween Manager\ITween.cs" />
+    <Compile Include="Assets\Assets\PSXShaderKit\Scripts\PSXPostProcessEffect.cs" />
     <Compile Include="Assets\Scripts\Objects\Shelf.cs" />
     <Compile Include="Assets\Scripts\UI\Misc\DisplayTime.cs" />
     <Compile Include="Assets\Scripts\UI\ClipboardUI\ClipBoard_View.cs" />
@@ -111,25 +113,46 @@
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-VertexLitTransparentCutout.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-UnlitTransparentCutout.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-Lite-UnlitTransparentCutout.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\ImageEffects\PSX-Pixelation.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\ImageEffects\PSX-Interlacing.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-ShaderSrc-Lite.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-Utils.cginc" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-VertexLit.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\ImageEffects\PSX-Dithering.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\ImageEffects\PSX-PostProcess.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-Lite-VertexLitTransparentCutout.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-Lite-UnlitTransparent.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-VertexLitTransparent.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-ShaderSrc.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-Unlit Transparent.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-Unlit.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-UnlitTransparent.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-Lite-VertexLit.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\Packages\DevTex\readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\ImageEffects\PSX-PostProcess-Accurate.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-Lite-Unlit.shader" />
+    <None Include="Assets\Assets\PSXShaderKit\Shaders\PSX-Lite-VertexLitTransparent.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
