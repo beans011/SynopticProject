@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class NothingHeldState : IInteractionState
 {
     int layer = LayerMask.GetMask("shelfSign");
+    private const string openSignTag = "openSign";
 
     public void HandleInput(PlayerInteraction playerInteraction)
     {
@@ -13,6 +14,7 @@ public class NothingHeldState : IInteractionState
         {
             RaycastHit hit;
 
+            //interact with boxes
             if (Physics.Raycast(playerInteraction.cameraTransform.position, playerInteraction.cameraTransform.forward, out hit, playerInteraction.interactRange))
             {
                 if (playerInteraction.holdingObject == null && hit.transform.CompareTag("canPickUp"))
@@ -27,6 +29,13 @@ public class NothingHeldState : IInteractionState
                     {
                         playerInteraction.SetState(new HoldingShelfBoxState());
                     }
+                }
+
+                //interact with shop sign
+                if (playerInteraction.holdingObject == null && hit.transform.CompareTag(openSignTag))
+                {
+                    var signScript = hit.transform.GetComponent<OpenCloseSign>();
+                    signScript.SignState();
                 }
             }
         }

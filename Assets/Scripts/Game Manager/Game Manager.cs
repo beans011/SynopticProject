@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int startMinute;
     [SerializeField] private int dayDuration; //IDK day is 10 min for now
     private float elapsedTime = 0f;
-    private bool isCountingTime = false;
+    private bool isShopOpen = false;
     private string timeDisplayText; 
 
     private void Awake()
@@ -41,16 +41,30 @@ public class GameManager : MonoBehaviour
 
         EventManager.CloseCheatConsole += LockPlayerCursor;
 
+        EventManager.SetShopOpen += SetIsShopOpen;
+
         ConfigureTime();
     }
 
     private void Update()
     {       
-        if (isCountingTime == true) 
+        if (isShopOpen == true) 
         {
             TimerCounting();
         }        
     }
+
+    //VERY IMPORTANT: use stuff for big important stuff that rely on the shop being open and day to day runnings
+    public bool GetIsShopOpen()
+    {
+        return isShopOpen;
+    }
+
+    public void SetIsShopOpen()
+    {
+        isShopOpen = !isShopOpen;
+    }
+
 
     public static bool GetPlayerCursorLocked()
     {
@@ -95,6 +109,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
+    #region timer stuff
     private void TimerCounting()
     {
         elapsedTime += Time.deltaTime;
@@ -107,7 +122,7 @@ public class GameManager : MonoBehaviour
 
         if (elapsedTime >= dayDuration)
         {
-            isCountingTime = false;
+            isShopOpen = false;
             currentHour = startHour + 10;
             currentMinute = 0;
         }
@@ -128,9 +143,5 @@ public class GameManager : MonoBehaviour
     {
         return timeDisplayText;
     }
-
-    public void SetIsTimerCounting(bool eh)
-    {
-        isCountingTime = eh;
-    }
+    #endregion
 }

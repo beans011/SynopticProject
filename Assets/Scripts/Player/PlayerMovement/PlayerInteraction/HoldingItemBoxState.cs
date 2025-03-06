@@ -5,6 +5,8 @@ using UnityEngine;
 public class HoldingItemBoxState : IInteractionState
 {
     int layer = LayerMask.GetMask("shelfSign");
+    private const string binTag = "bin";
+    private const string shelfTag = "shelfSign";
 
     public void HandleInput(PlayerInteraction playerInteraction)
     {
@@ -40,7 +42,7 @@ public class HoldingItemBoxState : IInteractionState
             {
                 Debug.Log(hit.transform.tag);
 
-                if (hit.transform.gameObject.tag == "shelfSign")
+                if (hit.transform.gameObject.tag == shelfTag)
                 {
                     //check if item can be added to box
                     if (playerInteraction.holdingObject.GetComponent<CardboardBox>().GetItem() == null || playerInteraction.holdingObject.GetComponent<CardboardBox>().GetItem() == hit.transform.gameObject.GetComponent<Shelf>().GetItem())
@@ -60,6 +62,13 @@ public class HoldingItemBoxState : IInteractionState
         if (Input.GetKeyDown(playerInteraction.playerObjectThrowKey) && playerInteraction.holdingObject != null)
         {
             playerInteraction.ThrowObject();
+        }
+
+        //binning boxes bit
+        if (Input.GetKeyDown(KeyCode.Mouse1) && playerInteraction.GetNearBoxBin() == true)
+        {
+            playerInteraction.DestroyCurrentHeldBox();
+            playerInteraction.SetState(new NothingHeldState());
         }
     }
 }

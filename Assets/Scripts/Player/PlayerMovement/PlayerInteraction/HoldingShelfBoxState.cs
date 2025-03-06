@@ -5,12 +5,13 @@ using UnityEngine;
 public class HoldingShelfBoxState : IInteractionState
 {
     private int boxOpen = 0;
+    private const string binTag = "bin";
 
     public void HandleInput(PlayerInteraction playerInteraction)
     {
         var shelfBox = playerInteraction.holdingObject.GetComponent<CardboardBoxShelf>();
 
-        if (boxOpen == 0)
+        if (boxOpen == 0) //box closed
         {
             if (shelfBox.IsPreviewShelfMade())
             {
@@ -22,7 +23,7 @@ public class HoldingShelfBoxState : IInteractionState
                 boxOpen = 1;
                 playerInteraction.holdingObject.SetActive(false);
                 EventManager.OnHoldingShelfBoxOpenStateUI();
-            }
+            }           
 
             if (Input.GetKeyDown(playerInteraction.playerObjectDropKey))
             {
@@ -33,8 +34,16 @@ public class HoldingShelfBoxState : IInteractionState
             {
                 playerInteraction.ThrowObject();
             }
+
+            //binning boxes bit
+            if (Input.GetKeyDown(KeyCode.Mouse1) && playerInteraction.GetNearBoxBin() == true)
+            {
+                playerInteraction.DestroyCurrentHeldBox();
+                playerInteraction.SetState(new NothingHeldState());
+            }
         }
-        else
+
+        else //box open
         {
             if (shelfBox.IsPreviewShelfMade() == false)
             {

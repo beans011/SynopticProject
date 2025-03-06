@@ -24,6 +24,12 @@ public class EventManager : MonoBehaviour
         ShopLevelUp?.Invoke();
     }
 
+    public static Action SetShopOpen;
+    public static void OnSetShopOpen()
+    {
+        SetShopOpen?.Invoke();
+    }
+
     #region UIEvents
     public static event Action GamePause;
     public static event Action GameResume;
@@ -38,6 +44,7 @@ public class EventManager : MonoBehaviour
     public static event Action HoldingShelfBoxOpenStateUI;
     public static event Action HoldingShelfBoxClosedStateUI;
     public static event Action DiableKeyBindUI;
+    public static event Action SetActiveBinBoxUI;
 
     public static void OnGamePause()
     {
@@ -90,6 +97,10 @@ public class EventManager : MonoBehaviour
     public static void OnDisableKeyBindUI()
     {
         DiableKeyBindUI?.Invoke();
+    }
+    public static void OnSetActiveBinBoxUI()
+    {
+        SetActiveBinBoxUI?.Invoke();
     }
     #endregion
 

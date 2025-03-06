@@ -21,6 +21,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private IInteractionState currentState;
     private bool inMenu = false;
+    private bool nearBoxBin = false;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class PlayerInteraction : MonoBehaviour
         EventManager.CloseTabMenu += SetInMenuFalse;
         EventManager.OpenCheatConsole += SetInMenuTrue;
         EventManager.CloseCheatConsole += SetInMenuFalse;
+        EventManager.SetActiveBinBoxUI += SetNearBoxBin;
 
         SetState(new NothingHeldState());
     }
@@ -246,5 +248,15 @@ public class PlayerInteraction : MonoBehaviour
     public void SetInMenuTrue() 
     {
         inMenu = true; 
+    }
+
+    public void SetNearBoxBin()
+    {
+        nearBoxBin = !nearBoxBin;
+    }
+
+    public bool GetNearBoxBin()
+    {
+        return nearBoxBin;
     }
 }
