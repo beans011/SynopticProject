@@ -45,6 +45,7 @@ public class EventManager : MonoBehaviour
     public static event Action HoldingShelfBoxClosedStateUI;
     public static event Action DiableKeyBindUI;
     public static event Action SetActiveBinBoxUI;
+    public static event Action SetActiveOpenSignUI;
 
     public static void OnGamePause()
     {
@@ -101,6 +102,10 @@ public class EventManager : MonoBehaviour
     public static void OnSetActiveBinBoxUI()
     {
         SetActiveBinBoxUI?.Invoke();
+    }
+    public static void OnSetActiveOpenSignUI()
+    {
+        SetActiveOpenSignUI?.Invoke();
     }
     #endregion
 
