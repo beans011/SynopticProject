@@ -13,8 +13,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int startHour;
     [SerializeField] private int startMinute;
     [SerializeField] private int dayDuration; //IDK day is 10 min for now
+    private int orgStartHour;
+    private int orgStartMinute;
+    private int lastSpawnMinute = -1;
+
     private float elapsedTime = 0f;
     private bool isShopOpen = false;
+    private bool isGameRunning = false;
     private string timeDisplayText; 
 
     private void Awake()
@@ -27,6 +32,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        orgStartHour = startHour;
+        orgStartMinute = startMinute;
+
+        StartGameDay();
+
         EventManager.GamePause += PauseGame;
         EventManager.GamePause += UnlockPlayerCursor;
 
@@ -48,10 +58,29 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {       
-        if (isShopOpen == true) 
+        if (isGameRunning)
         {
-            TimerCounting();
-        }        
+            if (isShopOpen == true)
+            {
+                TimerCounting();
+            }
+
+
+        }             
+    }
+
+    public void StartGameDay()
+    {
+        startHour = orgStartHour;
+        startMinute = orgStartMinute;
+        ConfigureTime();
+
+        isGameRunning = true;
+    }
+
+    public void EndGameDay() 
+    { 
+        isGameRunning = false;
     }
 
     //VERY IMPORTANT: use stuff for big important stuff that rely on the shop being open and day to day runnings
@@ -120,8 +149,15 @@ public class GameManager : MonoBehaviour
         int currentHour = startHour + (totalInGameMinutes / 60);
         int currentMinute = startMinute + (totalInGameMinutes % 60);
 
+        if ((currentMinute == 0 || currentMinute == 30) && currentMinute != lastSpawnMinute) //spawning npc shenanigans
+        {
+            SpawnWalkerNPC();
+            lastSpawnMinute = currentMinute;
+        }
+
         if (elapsedTime >= dayDuration)
         {
+            EndGameDay();
             isShopOpen = false;
             currentHour = startHour + 10;
             currentMinute = 0;
@@ -142,6 +178,13 @@ public class GameManager : MonoBehaviour
     public string GetTimeString()
     {
         return timeDisplayText;
+    }
+    #endregion
+
+    #region NPC stuff
+    private void SpawnWalkerNPC()
+    {
+        NPCSpawner.instance.SpawnWalkingNPC();      
     }
     #endregion
 }
