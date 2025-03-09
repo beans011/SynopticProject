@@ -65,12 +65,11 @@
     <Compile Include="Assets\Scripts\Debug\DebugCommand.cs" />
     <Compile Include="Assets\Assets\PSXShaderKit\Scripts\PSXShaderManager.cs" />
     <Compile Include="Assets\Packages\Tween Manager\TweenManager.cs" />
-    <Compile Include="Assets\Scripts\Objects\CardboardBoxShelf.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\UI\Misc\ShowOpenSignMsg.cs" />
     <Compile Include="Assets\Scripts\Objects\CardboardBox.cs" />
-    <Compile Include="Assets\Scripts\Objects\ShelfDetection.cs" />
     <Compile Include="Assets\Scripts\Game Manager\OpenCloseSign.cs" />
+    <Compile Include="Assets\Scripts\Objects\ShelfStuff\ShelfController.cs" />
     <Compile Include="Assets\Scripts\Game Manager\UI Controller.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerInteraction\HoldingItemBoxState.cs" />
     <Compile Include="Assets\Scripts\NPCs\WalkerNPC.cs" />
@@ -85,6 +84,7 @@
     <Compile Include="Assets\Scripts\Game Manager\Event Manager.cs" />
     <Compile Include="Assets\Packages\Tween Manager\Tween.cs" />
     <Compile Include="Assets\Packages\Custom UI Features\CustomUIComponent.cs" />
+    <Compile Include="Assets\Scripts\Game Manager\StockManager.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUpgradesUI\ItemDisplayUI\BuyProductInfoController.cs" />
     <Compile Include="Assets\Packages\Custom UI Features\CustomButton.cs" />
     <Compile Include="Assets\Scripts\UI\Misc\HoverButtonIncrease.cs" />
@@ -93,12 +93,10 @@
     <Compile Include="Assets\Scripts\Game Manager\Game Manager.cs" />
     <Compile Include="Assets\Scripts\Objects\BinCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\ProductFactory.cs" />
-    <Compile Include="Assets\Scripts\Objects\ShelfController.cs" />
     <Compile Include="Assets\Scripts\UI\ClipboardUI\ClipBoard_controller.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUpgradesUI\ShopWindowControl.cs" />
     <Compile Include="Assets\Packages\Tween Manager\ITween.cs" />
     <Compile Include="Assets\Assets\PSXShaderKit\Scripts\PSXPostProcessEffect.cs" />
-    <Compile Include="Assets\Scripts\Objects\Shelf.cs" />
     <Compile Include="Assets\Scripts\UI\Misc\DisplayTime.cs" />
     <Compile Include="Assets\Scripts\UI\ClipboardUI\ClipBoard_View.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUpgradesUI\ItemDisplayUI\BuyProductInfoView.cs" />
@@ -109,12 +107,15 @@
     <Compile Include="Assets\Scripts\UI\ShopUpgradesUI\ItemDisplayUI\BuyProductInfoDisplay.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUpgradesUI\UpgradesDisplay\UpgradeDisplayController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerInteraction\HoldingShelfBoxState.cs" />
+    <Compile Include="Assets\Scripts\Objects\ShelfStuff\ShelfDetection.cs" />
     <Compile Include="Assets\Scripts\UI\Misc\KeybindDisplay_Control.cs" />
     <Compile Include="Assets\Packages\Custom UI Features\Style.cs" />
     <Compile Include="Assets\Packages\Custom UI Features\CustomViewSO.cs" />
     <Compile Include="Assets\Scripts\Game Manager\Settings.cs" />
     <Compile Include="Assets\Scripts\Shop\ShopStats.cs" />
     <Compile Include="Assets\Scripts\Shop\ObjectTags.cs" />
+    <Compile Include="Assets\Scripts\Objects\ShelfStuff\CardboardBoxShelf.cs" />
+    <Compile Include="Assets\Scripts\Objects\ShelfStuff\Shelf.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement\PlayerInteraction\IInteractionState.cs" />
   </ItemGroup>
   <ItemGroup>
