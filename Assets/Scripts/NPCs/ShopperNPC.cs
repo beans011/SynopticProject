@@ -33,7 +33,7 @@ public class ShopperNPC : MonoBehaviour
 
     private void Start()
     {
-        budget = Random.Range(3.0f, 7.0f) * (ShopStats.GetShopLevel());
+        budget = Random.Range(3.0f, 7.0f) * (ShopStats.GetShopLevel()); //shop level is currently 0. and X * 0 is still fucking 0 so the npcs are breoke beyond belief
         currentBudget = budget;
         Debug.Log(budget);
 
