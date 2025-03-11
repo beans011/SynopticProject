@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ShelfController : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class ShelfController : MonoBehaviour
         for (int i = 0; i < shelves.Count; i++)
         {
             shelves[i].SetNPCCanInteract(npcCanInteract);
+            shelves[i].UpdateInfo();
         }
     }
 
@@ -89,5 +91,10 @@ public class ShelfController : MonoBehaviour
     public bool GetCanNPCInteract()
     {
         return npcCanInteract;
+    }
+
+    public List<Shelf> GetShelves()
+    {
+        return shelves;
     }
 }

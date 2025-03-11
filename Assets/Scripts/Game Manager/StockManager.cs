@@ -59,6 +59,40 @@ public class StockManager : MonoBehaviour
             stockInfo[item.productID].StockAmount = stockInfo[item.productID].StockAmount - 1;
             Debug.Log("removed 1 from " + stockInfo[item.productID] + " " + stockInfo[item.productID].StructItem.productName);
 
+            ShelfController[] allShelves = FindObjectsOfType<ShelfController>(); //really annoying fix and i dont like it cause it only is for visual changes as
+                                                                                 //but i need it to be there
+            foreach (ShelfController shelfController in allShelves)
+            {
+                foreach (Shelf shelf in shelfController.GetShelves())
+                {
+                    if (shelf.GetItem() != null && shelf.GetItem().productID == item.productID)
+                    {
+                        shelf.RemoveItemsFromShelf(1);
+                        Debug.Log("Removed 1 item from shelf: " + shelf.gameObject.name);
+                        break;
+                    }
+                }
+            }
+
+            if (stockInfo[item.productID].StockAmount <= 0)
+            {
+                DeleteItemFromDictionary(item);
+            }
+        }
+    }
+
+    public void RemoveOneFromStock(Item item, int bueno)
+    {
+        if (!stockInfo.ContainsKey(item.productID))
+        {
+            Debug.LogWarning("Item to be removed from StockInfo not found");
+            return;
+        }
+        else
+        {
+            stockInfo[item.productID].StockAmount = stockInfo[item.productID].StockAmount - 1;
+            Debug.Log("removed 1 from " + stockInfo[item.productID] + " " + stockInfo[item.productID].StructItem.productName);
+
             if (stockInfo[item.productID].StockAmount <= 0)
             {
                 DeleteItemFromDictionary(item);
@@ -80,6 +114,6 @@ public class StockManager : MonoBehaviour
     public int GetStockAmount(Item item)
     {
         return stockInfo[item.productID].StockAmount;
-    }
+    }    
     #endregion
 }

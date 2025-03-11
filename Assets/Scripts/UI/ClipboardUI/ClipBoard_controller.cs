@@ -98,6 +98,7 @@ public class ClipBoard_controller : MonoBehaviour
 
         if (canConvert == true)
         {
+            priceSet = float.Parse(newPrice);
             itemOnShelf.playerSetPrice = (float)Math.Round(priceSet, 2);
 
             shelfSelected.GetComponent<ShelfController>().CloseShelfControlUI();

@@ -80,7 +80,7 @@ public class Shelf : MonoBehaviour
                 GameObject itemToRemove = spawnedItems[spawnedItems.Count - 1];
                 spawnedItems.RemoveAt(spawnedItems.Count - 1);
 
-                StockManager.instance.RemoveOneFromStock(itemOnShelf); //removes one item from the stock info dictionary that the npcs will use to see items exist in world
+                StockManager.instance.RemoveOneFromStock(itemOnShelf, 1); //removes one item from the stock info dictionary that the npcs will use to see items exist in world
                                                                        //shelf shit is just visual stuff cause its painful to do it with them directly grabbing on shelf
                 Destroy(itemToRemove);
                 isShelfFull = false;
@@ -100,7 +100,7 @@ public class Shelf : MonoBehaviour
         }       
     }
 
-    private void UpdateInfo()
+    public void UpdateInfo()
     {
         if (itemOnShelf != null)
         {

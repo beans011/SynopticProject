@@ -150,6 +150,7 @@ public class GameManager : MonoBehaviour
         if ((currentMinute == 0 || currentMinute == 30) && currentMinute != lastSpawnMinute) //spawning npc shenanigans
         {
             SpawnWalkerNPC();
+            SpawnShopperNPC();
             lastSpawnMinute = currentMinute;
         }
 
@@ -183,6 +184,11 @@ public class GameManager : MonoBehaviour
     private void SpawnWalkerNPC()
     {
         NPCSpawner.instance.SpawnWalkingNPC();      
+    }
+
+    private void SpawnShopperNPC()
+    {
+        NPCSpawner.instance.SpawnShopperNPC();
     }
     #endregion
 }
