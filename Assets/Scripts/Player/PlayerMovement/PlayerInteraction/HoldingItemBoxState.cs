@@ -16,7 +16,7 @@ public class HoldingItemBoxState : IInteractionState
 
             if (Physics.Raycast(playerInteraction.cameraTransform.transform.position, playerInteraction.cameraTransform.transform.forward, out hit, playerInteraction.interactRange, layer))
             {
-                Debug.Log(hit.transform.tag);
+                //Debug.Log(hit.transform.tag);
 
                 if (hit.transform.gameObject.tag == "shelfSign")
                 {

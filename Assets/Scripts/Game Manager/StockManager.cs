@@ -76,7 +76,7 @@ public class StockManager : MonoBehaviour
 
             if (stockInfo[item.productID].StockAmount <= 0)
             {
-                DeleteItemFromDictionary(item);
+                DeleteItemFromDictionary(item.productID);
             }
         }
     }
@@ -95,15 +95,15 @@ public class StockManager : MonoBehaviour
 
             if (stockInfo[item.productID].StockAmount <= 0)
             {
-                DeleteItemFromDictionary(item);
+                DeleteItemFromDictionary(item.productID);
             }
         }
     }
 
-    public void DeleteItemFromDictionary(Item item)
+    public void DeleteItemFromDictionary(int id)
     {
-        Debug.Log("No items of name: " + item.productName + " in shop");
-        stockInfo.Remove(item.productID);
+        Debug.Log("No items of name: " + stockInfo[id].StructItem.productName + " in shop");
+        stockInfo.Remove(id);
     }
 
     public float GetPlayerSetPrice(Item item)

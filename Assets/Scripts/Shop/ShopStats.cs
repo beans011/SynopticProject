@@ -7,10 +7,10 @@ public class ShopStats
 {
     //this file is for data to do with the shop eg money, rent, shop upgrades etc
 
-    private static string shopName;
-    private static float money, billsAmount;
-    private static float moralityMeter;
-    private static int shopXP, shopLevel; 
+    private static string shopName = "shop";
+    private static float money = 0, billsAmount = 0;
+    private static float moralityMeter = 0;
+    private static int shopXP = 0, shopLevel = 1; 
 
     //VERY IMPORTANT!!!!!!
     //THE PRODUCT ID MUST MATCH ONE OF THESE IN THIS DICTIONARY JUST FOR EASE OF SAVING THIS FILE LATER ON
@@ -22,7 +22,7 @@ public class ShopStats
     public static float GetMoney() { return money; }
     public static void AddMoney(float amount) 
     { 
-        money += amount;
+        money = money + amount;
         Debug.Log(money);
     }
     public static void RemoveMoney(float amount) 

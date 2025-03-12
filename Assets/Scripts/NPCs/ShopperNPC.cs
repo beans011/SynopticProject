@@ -33,7 +33,7 @@ public class ShopperNPC : MonoBehaviour
 
     private void Start()
     {
-        budget = Random.Range(3.0f, 7.0f) * (ShopStats.GetShopLevel()); //shop level is currently 0. and X * 0 is still fucking 0 so the npcs are breoke beyond belief
+        budget = Random.Range(3.0f, 7.0f) * (ShopStats.GetShopLevel()); //shop level is currently 0. and X * 0 is still fucking 0 so the npcs are broke beyond belief
         currentBudget = budget;
         Debug.Log(budget);
 
@@ -84,12 +84,15 @@ public class ShopperNPC : MonoBehaviour
 
     private void ShoppingYAY()
     {
-        canBuyMore = false;
-        int maxAttempts = 10; //while loop might be painful and cause blackwhole so limiter here to help stop that
+        Debug.Log("shopping");
+        canBuyMore = true;
+        int maxAttempts = 10; //while loop might be painful and cause blackhole so limiter here to help stop that
         int attempts = 0;
 
         while (canBuyMore && attempts < maxAttempts)
         {
+            Debug.Log("actually shopping");
+
             canBuyMore = false;
 
             foreach (var stockItem in StockManager.instance.stockInfo.Values)
@@ -97,11 +100,17 @@ public class ShopperNPC : MonoBehaviour
                 if (stockItem.StockAmount > 0 && currentBudget >= stockItem.StructItem.playerSetPrice)
                 {
                     CanNPCBuyThatItem(stockItem.StructItem);
+
+                    Debug.Log(stockItem.StructItem.productName);
+
                     StockManager.instance.RemoveOneFromStock(stockItem.StructItem);
+
                     canBuyMore = true;
                     break;
                 }
             }
+
+            Debug.Log(attempts);
             attempts++;
         }
 
