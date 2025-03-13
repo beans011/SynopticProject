@@ -30,6 +30,7 @@ public class ShopperNPC : MonoBehaviour
     private float currentBudget;
     public Dictionary<int, NpcInventoryItem> npcInv = new Dictionary<int, NpcInventoryItem>();
     private bool canBuyMore;
+    private int itemsBought = 0;
 
     private void Start()
     {
@@ -105,6 +106,8 @@ public class ShopperNPC : MonoBehaviour
 
                     StockManager.instance.RemoveOneFromStock(stockItem.StructItem);
 
+                    itemsBought += 1;
+
                     canBuyMore = true;
                     break;
                 }
@@ -124,7 +127,7 @@ public class ShopperNPC : MonoBehaviour
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             ShopStats.AddMoney(Mathf.Round(budget - currentBudget));
-            Debug.Log(ShopStats.GetMoney());
+            ShopStats.SetShopXP(itemsBought);
             npcState = 3;
         }
     }

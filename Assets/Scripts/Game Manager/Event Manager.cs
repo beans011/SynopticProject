@@ -46,6 +46,8 @@ public class EventManager : MonoBehaviour
     public static event Action DiableKeyBindUI;
     public static event Action SetActiveBinBoxUI;
     public static event Action SetActiveOpenSignUI;
+    public static event Action UpdateMoneyDisplays;
+    public static event Action UpdateXPDisplays;
 
     public static void OnGamePause()
     {
@@ -106,6 +108,14 @@ public class EventManager : MonoBehaviour
     public static void OnSetActiveOpenSignUI()
     {
         SetActiveOpenSignUI?.Invoke();
+    }
+    public static void OnUpdateMoneyDisplays()
+    {
+        UpdateMoneyDisplays?.Invoke();
+    }
+    public static void OnUpdateXPDisplays()
+    {
+        UpdateXPDisplays?.Invoke();
     }
     #endregion
 

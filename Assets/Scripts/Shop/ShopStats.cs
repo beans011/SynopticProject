@@ -10,7 +10,7 @@ public class ShopStats
     private static string shopName = "shop";
     private static float money = 0, billsAmount = 0;
     private static float moralityMeter = 0;
-    private static int shopXP = 0, shopLevel = 1; 
+    private static int shopXP = 0, shopLevel = 1, shopXPNeededToLevelUp = 10; 
 
     //VERY IMPORTANT!!!!!!
     //THE PRODUCT ID MUST MATCH ONE OF THESE IN THIS DICTIONARY JUST FOR EASE OF SAVING THIS FILE LATER ON
@@ -23,12 +23,12 @@ public class ShopStats
     public static void AddMoney(float amount) 
     { 
         money = money + amount;
-        Debug.Log(money);
+        EventManager.OnUpdateMoneyDisplays();
     }
     public static void RemoveMoney(float amount) 
     {  
         money -= amount;
-        Debug.Log(money);
+        EventManager.OnUpdateMoneyDisplays();
     }
 
     public static float GetBillsAmount() { return billsAmount; }
@@ -38,7 +38,21 @@ public class ShopStats
     public static void SetMoralityMeter(float moralityCost) { moralityMeter = moralityMeter + moralityCost; }
 
     public static int GetShopXP() { return shopXP; }
-    public static void SetShopXP(int xpGained) { shopXP = shopXP + xpGained; }
+    public static void SetShopXP(int xpGained) 
+    {
+        shopXP += xpGained;
+        EventManager.OnUpdateXPDisplays();
+
+        while (shopXP >= shopXPNeededToLevelUp)
+        {
+            shopXP -= shopXPNeededToLevelUp;
+            shopLevel++;
+            shopXPNeededToLevelUp = Mathf.CeilToInt(shopXPNeededToLevelUp * 1.5f);
+            EventManager.OnShopLevelUp();
+        }
+    }
+
+    public static int GetShopXPToLevelUp() { return shopXPNeededToLevelUp; }
 
     public static int GetShopLevel() {  return shopLevel; }
     public static void SetShopLevel(int level) 
