@@ -48,6 +48,7 @@ public class EventManager : MonoBehaviour
     public static event Action SetActiveOpenSignUI;
     public static event Action UpdateMoneyDisplays;
     public static event Action UpdateXPDisplays;
+    public static event Action UpdateShopNameDisplay;
 
     public static void OnGamePause()
     {
@@ -116,6 +117,10 @@ public class EventManager : MonoBehaviour
     public static void OnUpdateXPDisplays()
     {
         UpdateXPDisplays?.Invoke();
+    }
+    public static void OnUpdateShopNameDisplay()
+    {
+        UpdateShopNameDisplay?.Invoke();
     }
     #endregion
 

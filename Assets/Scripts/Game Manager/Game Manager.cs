@@ -20,7 +20,11 @@ public class GameManager : MonoBehaviour
     private float elapsedTime = 0f;
     private bool isShopOpen = false;
     private bool isGameRunning = false;
-    private string timeDisplayText; 
+    private string timeDisplayText;
+
+    [Header("Start UI")]
+    [SerializeField] private GameObject startMenuUI;
+    //private bool hasGameStartedBefore = false;
 
     private void Awake()
     {
@@ -54,6 +58,8 @@ public class GameManager : MonoBehaviour
         EventManager.SetShopOpen += SetIsShopOpen;
 
         ConfigureTime();
+
+        ShowStartUI();
     }
 
     private void Update()
@@ -190,5 +196,11 @@ public class GameManager : MonoBehaviour
     {
         NPCSpawner.instance.SpawnShopperNPC();
     }
-    #endregion
+    #endregion 
+
+    private void ShowStartUI()
+    {
+        startMenuUI.SetActive(true);
+        EventManager.OnOpenTabMenu();
+    }
 }

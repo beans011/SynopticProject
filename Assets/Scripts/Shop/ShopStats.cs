@@ -17,7 +17,12 @@ public class ShopStats
     private static Dictionary<int, Item> itemUnlocks = new Dictionary<int, Item>();
 
     public static string GetShopName() {  return shopName; }
-    public static void SetShopName(string newShopName) { shopName = newShopName; }
+    public static void SetShopName(string newShopName) 
+    { 
+        shopName = newShopName;
+        Debug.Log(shopName);
+        EventManager.OnUpdateShopNameDisplay();
+    }
 
     public static float GetMoney() { return money; }
     public static void AddMoney(float amount) 
