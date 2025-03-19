@@ -14,5 +14,6 @@ public class EnterShopSignUI : MonoBehaviour
         ShopStats.SetShopName(newName);
         gameObject.SetActive(false);
         EventManager.OnCloseTabMenu();
+        EventManager.OnSomeRandomEvent();
     }
 }

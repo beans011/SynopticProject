@@ -49,6 +49,7 @@ public class EventManager : MonoBehaviour
     public static event Action UpdateMoneyDisplays;
     public static event Action UpdateXPDisplays;
     public static event Action UpdateShopNameDisplay;
+    public static event Action SomeRandomEvent;
 
     public static void OnGamePause()
     {
@@ -121,6 +122,10 @@ public class EventManager : MonoBehaviour
     public static void OnUpdateShopNameDisplay()
     {
         UpdateShopNameDisplay?.Invoke();
+    }
+    public static void OnSomeRandomEvent()
+    {
+        SomeRandomEvent?.Invoke();
     }
     #endregion
 
