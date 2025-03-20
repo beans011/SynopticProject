@@ -26,6 +26,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject startMenuUI;
     //private bool hasGameStartedBefore = false;
 
+    //end screen ui stuff
+    private float startMoney;
+    private float endMoney;
+    private float profit;
+    private int day = 0;
+
     private void Awake()
     {
         if (instance == null)
@@ -60,6 +66,9 @@ public class GameManager : MonoBehaviour
         ConfigureTime();
 
         ShowStartUI();
+
+        startMoney = ShopStats.GetMoney();
+        day += 1;
     }
 
     private void Update()
@@ -85,6 +94,11 @@ public class GameManager : MonoBehaviour
     public void EndGameDay() 
     { 
         isGameRunning = false;
+        endMoney = ShopStats.GetMoney();
+        profit = endMoney - startMoney;
+
+        EventManager.OnUpdateEndScreen();
+        EventManager.OnOpenCheatConsole();
     }
 
     //VERY IMPORTANT: use stuff for big important stuff that rely on the shop being open and day to day runnings
@@ -203,4 +217,9 @@ public class GameManager : MonoBehaviour
         startMenuUI.SetActive(true);
         EventManager.OnOpenTabMenu();
     }
+
+    public float GetStartMoney() { return (float)Math.Round(startMoney, 2); }
+    public float GetEndMoney() { return (float)Math.Round(endMoney, 2); }
+    public float GetProfit() { return (float)Math.Round(profit, 2); }
+    public int GetDay() { return day; }
 }
