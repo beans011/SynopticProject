@@ -8,7 +8,7 @@ public class ShopStats
     //this file is for data to do with the shop eg money, rent, shop upgrades etc
 
     private static string shopName = "shop";
-    private static float money = 0, billsAmount = 0;
+    private static float money = 10, billsAmount = 0;
     private static float moralityMeter = 0;
     private static int shopXP = 0, shopLevel = 1, shopXPNeededToLevelUp = 10; 
 
